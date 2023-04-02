@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Inline-SVG als background-image über CSS-Variablen - HTML/CSS Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Inline-SVG als background-image über CSS-Variablen" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grid-container grid-container--article">
+      <nav>
+        <h1>Beiträge</h1>
+        <ol>
+          <li><a href="kurzschreibweise-top-right-bottom-left.html">Kurzschreibweise für top, right, bottom, left</a></li>
+          <li><a href="texte-als-maske-fuer-hintergruende.html">Texte als Maske für Hintergründe</a></li>
+          <li><a href="der-irrtum-mit-root-em.html">Der Irrtum mit root em</a></li>
+          <li><a href="horizontales-menue-mit-trennern.html">Horizontales Menü mit Trennern</a></li>
+          <li>
+            <a href="steuerung-der-spezifizitaet-bei-mehreren-attributen.html">Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</a>
+          </li>
+          <li><a href="inline-svg-als-background-image-ueber-css-variablen.html">Inline-SVG als background-image über CSS-Variablen</a></li>
+          <li>
+            <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
+          </li>
+        </ol>
+      </nav>
+      <main>
+        <article>
+          <h1>Inline-SVG als background-image über CSS-Variablen</h1>
+          <h4>
+            <i>Autor: Aykut Şensoy, Datum: <time datetime="2023-03-15">15.03.2023</time></i>
+          </h4>
+          <p>
+            Wir mussten im Rahmen eines Themings für zwei Mandanten, ausnahmsweise die jeweiligen SVG-Logos nicht wie üblich inline im HTML-Quellcode verbauen,
+            sondern inline als background-image in einer CSS-Datei. Der Hintergrund war, dass das Theming in diesem Fall ausschließlich über CSS custom
+            properties, sprich native CSS-Variablen funktioniert hat und in dieser Umgebung auch kein Import von Assets möglich war. Damit man zwischen den
+            beiden Logos umschalten konnte, mussten die SVG-Logos also zwingend inline als background-image in einer CSS-Variable definiert werden. Ich habe
+            gemerkt, dass das nicht trivial ist und nicht einfach mal schnell gemacht werden kann. Es waren mehrere Schritte durchzuführen und ein paar
+            Fallstricke zu beachten, damit am Ende das gewünschte Ergebnis herauskam.
+          </p>
+
+          <h2>1. SVG-Optimierung</h2>
+          <p>
+            Ich verwende die SVG-Dateien niemals so, wie sie von Vektorgrafik-Programmen oder Design-Tools bereitgestellt werden. Diese sind in der Regel mit
+            viel unnötigem XML-Markup aufgebläht. Also ist der allererste Schritt immer, wenn ich eine SVG verbauen soll (egal in welcher Form), die Optimierung
+            des SVG-Quellcodes. Dafür nutze ich seit Jahren nur ein Tool, was für mich das Nonplusultra darstellt. Es handelt sich dabei um das auf Node.js
+            basierende Online-Tool SVGOMG. Das Projekt wird betrieben von Jake Archibald, dem Entwickler-Advokaten für Google Chrome. Meiner Erfahrung nach
+            spart man bei jedem SVG im Durchschnitt bis zu 40% an Dateigröße, manchmal sogar mehr. Also einfach mal die Suchmaschine anschmeißen, nach "SVGOMG"
+            suchen und sich an diesem fantastischen Tool erfreuen.
+          </p>
+
+          <h2>2. SVG-Encoding</h2>
+          <p>
+            Man kann aber diesen optimierten SVG-Code nicht einfach so in die CSS übernehmen. Das ist auch schon der erste Fallstrick. Das XML-Markup enthält
+            nämlich einige Sonderzeichen, die bei der background-image Deklaration im url()-Wert nicht verwendet werden dürfen. Um den SVG-Code inline im CSS zu
+            verwenden, muss vorher ein URL Encoder benutzt werden. Auch hier einfach mal die Suchmaschine anschmeißen und nach "SVG Encoder" suchen. Es kann das
+            erstbeste Tool genutzt werden. Ich nutze in der Regel den "URL-Encoder for SVG" von yoksel. Hier ein Beispiel mit dem SVG-Logo aus Wikipedia:
+          </p>
+
+          <p><b>SVG-Logo vor Encodierung</b></p>
+          <pre>
+&ltsvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"&gt;
+  &ltpath fill="#FFB13B" stroke="#000" stroke-width="6" d="m30 42-5-5a10 10 0 1 1 12-12l5 5v-7a10 10 0 1 1 17 0v7l5-5a10 10 0 1 1 12 12l-5 5h7a10 10 0 1 1 0 17h-7l5 5a10 10 0 1 1-12 12l-5-5v7a10 10 0 1 1-17 0v-7l-5 5a10 10 0 1 1-12-12l5-5h-7a10 10 0 1 1 0-17z"/&gt;
+&lt/svg&gt;
+</pre
+          >
+
+          <p><b>SVG-Logo nach Encodierung</b></p>
+          <pre>
+%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath fill='%23FFB13B' stroke='%23000' stroke-width='6' d='m30 42-5-5a10 10 0 1 1 12-12l5 5v-7a10 10 0 1 1 17 0v7l5-5a10 10 0 1 1 12 12l-5 5h7a10 10 0 1 1 0 17h-7l5 5a10 10 0 1 1-12 12l-5-5v7a10 10 0 1 1-17 0v-7l-5 5a10 10 0 1 1-12-12l5-5h-7a10 10 0 1 1 0-17z' /%3E%3C/svg%3E
+</pre
+          >
+
+          <h2>3. SVG als CSS-Variable</h2>
+          <p>
+            Nun sollte man meinen, den URL-encodierten SVG-String einer CSS-Variablen zuweisen zu können. Das geht aber auch nicht ohne weiteres. Das ist nun
+            der zweite Fallstrick. Eine CSS-Variable innerhalb des url()-Werts beim background-image ist nicht möglich. Es gibt aber einen Trick mit dem das
+            Ganze dann doch möglich wird. Der Trick ist den kompletten String inklusive der url()-Definition in die CSS-Variable mit aufzunehmen. Hier ein
+            Beispiel für eine falsche vs. richtige Zuweisung an eine CSS-Variable:
+          </p>
+
+          <p><b>falsch</b></p>
+          <pre>
+:root {
+  --svg-logo: data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath fill='%23FFB13B' stroke='%23000' stroke-width='6' d='m30 42-5-5a10 10 0 1 1 12-12l5 5v-7a10 10 0 1 1 17 0v7l5-5a10 10 0 1 1 12 12l-5 5h7a10 10 0 1 1 0 17h-7l5 5a10 10 0 1 1-12 12l-5-5v7a10 10 0 1 1-17 0v-7l-5 5a10 10 0 1 1-12-12l5-5h-7a10 10 0 1 1 0-17z' /%3E%3C/svg%3E";
+}
+
+.foo {
+  background-image: url(var(--svg-logo)); // invalide
+}
+</pre
+          >
+
+          <p><b>richtig</b></p>
+          <pre>
+:root {
+  --svg-logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath fill='%23FFB13B' stroke='%23000' stroke-width='6' d='m30 42-5-5a10 10 0 1 1 12-12l5 5v-7a10 10 0 1 1 17 0v7l5-5a10 10 0 1 1 12 12l-5 5h7a10 10 0 1 1 0 17h-7l5 5a10 10 0 1 1-12 12l-5-5v7a10 10 0 1 1-17 0v-7l-5 5a10 10 0 1 1-12-12l5-5h-7a10 10 0 1 1 0-17z' /%3E%3C/svg%3E");
+}
+
+.foo {
+  background-image: var(--svg-logo); // valide
+}
+</pre
+          >
+        </article>
+      </main>
+    </div>
+    <footer>
+      &copy 2022-2023
+      <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
+    </footer>
+  </body>
+</html>

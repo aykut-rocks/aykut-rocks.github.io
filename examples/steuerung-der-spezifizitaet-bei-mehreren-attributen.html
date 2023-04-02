@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag - HTML/CSS Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .foo {
+        font-size: 64px;
+        font-family: impact;
+      }
+      .bar {
+        font-size: 32px;
+        font-family: verdana;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid-container grid-container--article">
+      <nav>
+        <h1>Beiträge</h1>
+        <ol>
+          <li><a href="kurzschreibweise-top-right-bottom-left.html">Kurzschreibweise für top, right, bottom, left</a></li>
+          <li><a href="texte-als-maske-fuer-hintergruende.html">Texte als Maske für Hintergründe</a></li>
+          <li><a href="der-irrtum-mit-root-em.html">Der Irrtum mit root em</a></li>
+          <li><a href="horizontales-menue-mit-trennern.html">Horizontales Menü mit Trennern</a></li>
+          <li>
+            <a href="steuerung-der-spezifizitaet-bei-mehreren-attributen.html">Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</a>
+          </li>
+          <li><a href="inline-svg-als-background-image-ueber-css-variablen.html">Inline-SVG als background-image über CSS-Variablen</a></li>
+          <li>
+            <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
+          </li>
+        </ol>
+      </nav>
+      <main>
+        <article>
+          <h1>Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</h1>
+          <h4><i>Autor: Aykut Şensoy, Datum: <time datetime="2023-03-01">01.03.2023</time></i></h4>
+          <p>
+            Die Definition von mehreren CSS-Klassen an einem html-Tag ist gängige Praxis, insbesondere die Nutzung einer zweiten Klasse als Modifier, die die
+            erste Klasse überschreibt. Weiterhin ist es auch ganz normal und sogar oft notwendig, mehrere Attribute am gleichen html-Tag zu definieren. Der
+            Zugriff auf Klassen erfolgt mit Klassen-Selektoren, analog dazu der Zugriff auf Attribute mit Attribut-Selektoren. Das Problem dabei ist lediglich
+            die Spezifizität.
+          </p>
+          <p>
+            Wenn am gleichen html-Tag zwei CSS-Klassen definiert sind, haben sie die gleiche Spezifizität. Die zweite Klasse überschreibt die erste nicht, weil
+            sie nach der ersten Klasse definiert wurde, sondern nur wenn die CSS in der richtigen Reihenfolge deklariert wurde. D.h. die Reihenfolge der Klassen
+            spielt keine Rolle, solange die CSS in der gewünschten Reihenfolge definiert wurde. Hier die Beispiele:
+          </p>
+          <pre>
+&ltstyle&gt;
+.foo {
+  font-size: 24px;
+}
+
+.bar {
+  font-size: 32px; // bar überschreibt foo
+}
+&lt/style&gt;
+
+&lt;div class="foo bar"&gt;lorem ipsum&lt;/div&gt;
+
+&lt;div class="bar foo"&gt;lorem ipsum&lt;/div&gt;
+</pre
+          >
+          <pre>
+&ltstyle&gt;
+.bar {
+  font-size: 32px;
+}
+
+.foo {
+  font-size: 24px; // foo überschreibt bar
+}
+&lt/style&gt;
+
+&lt;div class="foo bar"&gt;lorem ipsum&lt;/div&gt;
+
+&lt;div class="bar foo"&gt;lorem ipsum&lt;/div&gt;
+</pre
+          >
+          <p>
+            Es ist also egal, in welcher Reihenfolge "foo" oder "bar" im HTML-Quellcode stehen, relevant ist nur, dass in der CSS "bar" nach "foo" deklariert
+            wurde, damit "foo" durch "bar" überschrieben wird.
+          </p>
+          <p>
+            In großen Projekten ist das aber nicht so eine sichere Sache. Denn beim Bundling (oder bei einer Minifizierung) einer großen Menge CSS, ist nicht
+            unbedingt gesichert, dass CSS immer in der gewünschten Reihenfolge gebundelt wird. In solchen Fällen hilft das Chaining von Klassen. Dadurch lässt
+            sich per CSS die Spezifizität steuern und die Reihenfolge der CSS ist dann nicht mehr relevant. Hier ein entsprechendes Beispiel:
+          </p>
+          <pre>
+&ltstyle&gt;
+.foo.bar {
+  font-size: 32px; // bar überschreibt foo
+}
+
+.foo {
+  font-size: 24px;
+}
+&lt/style&gt;
+
+&lt;div class="foo bar"&gt;lorem ipsum&lt;/div&gt;
+
+&lt;div class="bar foo"&gt;lorem ipsum&lt;/div&gt;
+</pre
+          >
+          <p>
+            Wie ist es aber bei Attribut-Selektoren? Da existiert das gleiche Problem. Attribute am gleichen html-Tag haben die gleiche Spezifizität, d.h. auch
+            hier ist die Reihenfolge am html-Tag irrelevant, es entscheidet allein die Reihenfolge in der CSS. Genau dieses Problem hatte ich in einem Fall, wo
+            wir für unterschiedliche Mandanten unterschiedliche Themings hatten, die über data-Attribute mit CSS-Variablen gesteuert werden. Hier die Beispiele:
+          </p>
+          <pre>
+&ltstyle&gt;
+[data-tenant="foo"] {
+  font-size: 24px;
+}
+
+[data-theme="bar"] { // bar überschreibt foo
+  font-size: 32px;
+}
+&lt/style&gt;
+
+&lt;div data-tenant="foo" data-theme="bar"&gt;lorem ipsum&lt;/div&gt;
+
+&lt;div data-theme="bar" data-tenant="foo"&gt;lorem ipsum&lt;/div&gt;
+</pre
+          >
+          <pre>
+&ltstyle&gt;
+[data-theme="bar"] {
+  font-size: 32px;
+}
+
+[data-tenant="foo"] { // foo überschreibt bar
+  font-size: 24px;
+}
+&lt/style&gt;
+  
+&lt;div data-tenant="foo" data-theme="bar"&gt;lorem ipsum&lt;/div&gt;
+
+&lt;div data-theme="bar" data-tenant="foo"&gt;lorem ipsum&lt;/div&gt;
+</pre
+          >
+          <p>
+            Wenn man auch hier die Reihenfolge der CSS-Deklarationen unabhängig gestalten will, dann hilft hier auch nur das Chaining. Es ist zwar allgemein
+            nicht üblich bei Attribut-Selektoren zu chainen, aber Attribut-Selektoren lassen sich auch per Chaining in ihrer Spezifizität beeinflussen.
+            Interessant ist die Syntax, die nicht ganz so offensichtlich ist. Hier ein entsprechendes Beispiel:
+          </p>
+          <pre>
+&ltstyle&gt;
+[data-tenant="foo"][data-theme="bar"] { // bar überschreibt foo
+  font-size: 32px;
+}
+
+[data-tenant="foo"] {
+  font-size: 24px;
+}
+&lt/style&gt;
+  
+&lt;div data-tenant="foo" data-theme="bar"&gt;lorem ipsum&lt;/div&gt;
+
+&lt;div data-theme="bar" data-tenant="foo"&gt;lorem ipsum&lt;/div&gt;
+</pre
+          >
+          <p>
+            Der Trick ist also die Attribut-Selektoren ohne Punkt und ohne Leerzeichen direkt nebeneinander zu schreiben, um sie zu chainen. Damit der Parser
+            auch nicht in allen html-Elementen nach den Attributen sucht, kann man das Ganze noch wie folgt auf das html-Element eingrenzen.
+          </p>
+          <pre>
+&ltstyle&gt;
+div[data-tenant="foo"][data-theme="bar"] { // bar überschreibt foo nur an div-Elementen
+  font-size: 32px;
+}
+
+[data-tenant="foo"] {
+  font-size: 24px;
+}
+&lt/style&gt;
+  
+&lt;div data-tenant="foo" data-theme="bar"&gt;lorem ipsum&lt;/div&gt;
+
+&lt;div data-theme="bar" data-tenant="foo"&gt;lorem ipsum&lt;/div&gt;
+</pre
+          >
+        </article>
+      </main>
+    </div>
+    <footer>
+      &copy 2022-2023
+      <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
+    </footer>
+  </body>
+</html>

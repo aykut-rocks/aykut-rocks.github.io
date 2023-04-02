@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Der Irrtum mit root em - HTML/CSS Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Der Irrtum mit root em" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grid-container grid-container--article">
+      <nav>
+        <h1>Beiträge</h1>
+        <ol>
+          <li><a href="kurzschreibweise-top-right-bottom-left.html">Kurzschreibweise für top, right, bottom, left</a></li>
+          <li><a href="texte-als-maske-fuer-hintergruende.html">Texte als Maske für Hintergründe</a></li>
+          <li><a href="der-irrtum-mit-root-em.html">Der Irrtum mit root em</a></li>
+          <li><a href="horizontales-menue-mit-trennern.html">Horizontales Menü mit Trennern</a></li>
+          <li>
+            <a href="steuerung-der-spezifizitaet-bei-mehreren-attributen.html">Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</a>
+          </li>
+          <li><a href="inline-svg-als-background-image-ueber-css-variablen.html">Inline-SVG als background-image über CSS-Variablen</a></li>
+          <li>
+            <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
+          </li>
+        </ol>
+      </nav>
+      <main>
+        <article>
+          <h1>Der Irrtum mit root em</h1>
+          <h4><i>Autor: Aykut Şensoy, Datum: <time datetime="2023-02-01">01.02.2023</time></i></h4>
+          <p>
+            Viele Web-Entwickler setzen durchgehend auf root em (rem) als Einheit, um eine responsive Website zu erstellen. Es wird davon ausgegangen, dass erst
+            mit rem die HTML-Seiten dazu befähigt werden, sich an die Viewports anzupassen und seine Inhalte proportional zu skalieren. Das ist völliger
+            Quatsch. Die Einheit rem ist weder Voraussetzung für die Anpassung an die Browserfenster, noch für die Skalierung der Inhalte im Browser. Sie kann
+            zwar helfen bestimmte Anforderungen an die Responsiveness einer Webseite umzusetzen, im Grunde ist es aber ein reines Accessibility Feature.
+          </p>
+          <p>
+            Ich möchte, dass Sie sich jetzt etwas Zeit nehmen und mit folgenden beiden Dokuemnten in Ihrem Browser herumspielen. Es handelt sich hierbei um 2
+            rudimentär gehaltene Test-Seiten mit einem HTML-Gerüst sowie 3 Teasern. Die eine Seite ist ausschließlich mit Pixeln (px) umgesetzt, die andere
+            ausschließlich mit root em (rem).
+          </p>
+          <p>
+            <span><a href="examples/test-px.html">Testseite mit px</a> <a href="examples/test-rem.html">Testseite mit rem</a></span>
+          </p>
+          <p>
+            Dabei sollten Sie die Zoom-Funktionen des Browsers nutzen und in die HTML-Seiten hinein- und herauszoomen. Sie sollten auch das Browserfenster
+            kleiner und größer ziehen. Weiterhin sollten Sie die Developer Tools öffnen und in der Device-Toolbar unterschiedliche Bildschirmgrößen testen und
+            auch zwischen Landscape- und Portrait-Modus umschalten. Sie werden im Verhalten der beiden Testseiten keinen Unterschied feststellen. Egal welche
+            Variante Sie nehmen, mit oder ohne rem, die beiden HTML-Seiten verhalten sich identisch. Es spielt also gar keine Rolle ob sie px oder rem
+            verwenden. Die Seite verhält sich was Responsiveness oder Skalierung angeht genau gleich.
+          </p>
+          <p>
+            D.h. für den "normalen" User ist es erst einmal irrelevant, ob px oder rem genutzt werden. Man kann noch weitergehen und sagen, dass CSS selbst für
+            eine responsive Website nicht notwendig ist, da bereits der HTML-Standard in seiner Natur für sämtliche HTML-Tags eine Responsiveness vorsieht. Zum
+            Beispiel wird ein Paragraph- oder ein Heading-Tag sich auch ohne CSS immer dem Browserfenster anpassen und seine Inhalte bei Bedarf automatisch
+            umbrechen.
+          </p>
+          <h2>Was ist also der Unterschied? Wozu braucht man dann rem?</h2>
+          <p>
+            Um sinnvoll mit rem zu arbeiten, muss man erst einmal das Konzept hinter rem verstehen. Wie der Name schon sagt, ist root em (rem) ein em-Wert,
+            welches einzig und allein von der font-size im root-Element abhängig ist. Das root-Element in Browsern ist immer der html-Tag. Der Basis-Wert für
+            die font-size ist in allen Browsern per default mit 16px vordefiniert, kann aber in den Browsereinstellungen überschrieben werden. D.h. 1rem
+            entspricht 16px, solange die Darstellung der Schriftgröße in den Browsereinstellungen nicht manuell verändert wird oder nicht per CSS überschrieben
+            wird. Dabei betone ich CSS, d.h. die Skalierung im Browser oder Änderungen des Viewports haben keinen Einfluss auf rem-Werte. Die rem-Werte bleiben
+            konstant in Abhängigkeit zur Schriftgröße im root-Element. Daher gibt es bei der o.g. rem-Testseite keine Abweichung zur px-Testseite, solange sich
+            die font-size am html-Tag nicht ändert oder die Browsereinstellung für die Schriftgröße nicht verändert wird.
+          </p>
+          <p>
+            Sie können sich jetzt wieder etwas Zeit nehmen und nochmal mit den beiden Testseiten herumspielen. Öffnen Sie die Developer-Tools und definieren Sie
+            z.B. font-size: 24px; für den html-Tag. Gehen Sie in die Einstellungen Ihres Browsers und ändern sie in den Darstellungsoptionen die Schriftgröße
+            (z.B. auf "sehr groß" unter Chrome). Auf der Testseite mit px werden Sie keine Veränderung feststellen, aber die Testseite, die auf rem basiert,
+            wird sich um das 1,5-fache skalieren.
+          </p>
+          <p>
+            Da viele Websites zwar durchgehend auf rem setzen, aber die Layouts nicht darauf optimiert sind, richtet es eher Schaden an, wenn z.B. Menschen mit
+            Sehschwäche mit vergrößerter Schriftgröße im Internet surfen. Die HTML-Seiten sehen dann eher kaputt als sinnvoll aus.
+          </p>
+          <p>
+            Die Einheit rem sollte vielmehr für die Verbesserung der Accessibility eingesetzt werden, um den Usern eine bessere Lesbarkeit der Inhalte zu
+            ermöglichen. Im Idealfall ist die gesamte Website auf die Änderungen der Schriftgröße im root-Element optimiert. Eine andere Möglichkeit wäre z.B.
+            wenn rem ausschließlich an den Properties definiert wird, die gezielt skaliert werden sollen ohne den Rest des Layouts zu zerstören.
+          </p>
+          <p>
+            Hier ist eine weitere Testseite mit einem vereinfachten Beispiel, wo nur der Paragraph in Teaser 1 und der Banner in Teaser 2 mit rem definiert
+            sind, der Rest in px. Wenn der Viewport kleiner als 600px breit ist, wird im root-Element die font-size per Media Query auf 24px hochgestellt. In
+            diesem Fall wird nur der Paragraph und der Banner größer darstellt, der Rest der Seite bleibt von der Skalierung unberührt.
+          </p>
+          <p>
+            <span><a href="examples/test-px-rem.html">Testseite mit px und rem</a></span>
+          </p>
+          <p>
+            Eine weitere spannende Möglichkeit mit rem wäre, Bildschirme mit sehr großen Auflösungen zu bedienen. Dazu wird es hier aber ein separates Tutorial
+            geben.
+          </p>
+        </article>
+      </main>
+    </div>
+    <footer>
+      &copy 2022-2023
+      <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
+    </footer>
+  </body>
+</html>

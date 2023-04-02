@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Zwei Varianten für eine table caption - HTML/CSS Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Zwei Varianten für eine table caption" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grid-container grid-container--article">
+      <nav>
+        <h1>Beiträge</h1>
+        <ol>
+          <li><a href="kurzschreibweise-top-right-bottom-left.html">Kurzschreibweise für top, right, bottom, left</a></li>
+          <li><a href="texte-als-maske-fuer-hintergruende.html">Texte als Maske für Hintergründe</a></li>
+          <li><a href="der-irrtum-mit-root-em.html">Der Irrtum mit root em</a></li>
+          <li><a href="horizontales-menue-mit-trennern.html">Horizontales Menü mit Trennern</a></li>
+          <li>
+            <a href="steuerung-der-spezifizitaet-bei-mehreren-attributen.html">Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</a>
+          </li>
+          <li><a href="inline-svg-als-background-image-ueber-css-variablen.html">Inline-SVG als background-image über CSS-Variablen</a></li>
+          <li>
+            <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
+          </li>
+        </ol>
+      </nav>
+      <main>
+        <article>
+          <h1>Zwei Varianten für eine table caption</h1>
+          <h4><i>Autor: Aykut Şensoy, Datum: <time datetime="2023-04-01">01.04.2023</time></i></h4>
+          <p>
+            Die Erstellung von Tabellen in HTML hat nach wie vor eine große Bedeutung bei der Visualisierung von bestimmten Datenstrukturen im Internet. Neben
+            einer guten Semantik ist für SEO vor allem das Hinzufügen einer table caption, also einer Tabellenüberschrift, von großem Vorteil. Denn oft
+            erschließt sich der Inhalt einer Tabelle für Mensch und Maschine nur über den hinzugefügten Titel. Weiterhin kann man in der table caption auch
+            wichtige Informationen wie die Quelle oder das Datum der Tabelle unterbringen. HTML5 stellt zwei Arten bereit, wie man eine table caption definieren
+            kann. Ebenso ist es in beiden Varianten möglich die table caption oberhalb oder unterhalb der Tabelle zu rendern, wenn auch jeweils mit einem ganz
+            anderen Ansatz.
+          </p>
+
+          <h2>1. caption-Tag</h2>
+
+          <p>
+            Die erste Variante zur Erstellung einer table caption ist die Verwendung eines caption-Tags. Der caption-Tag ist ein sehr spezifischer Tag, welches
+            nur innerhalb des table-Tags verwendet wird. Es hat einen eigenen display-type und bietet darüber hinaus noch zwei Deklarationen für "text-align"
+            und "caption-side". Das sind die default-Werte:
+          </p>
+
+          <pre>
+caption {
+    display: table-caption;
+    text-align: center;
+    caption-side: top;
+}
+</pre
+          >
+
+          <p>
+            Der caption-Tag darf ausschließlich als erstes Kind-Element innerhalb eines table-Tags definiert werden, sonst ist es invalide. Die Darstellung des
+            Titels oberhalb oder unterhalb der Tabelle ist in dieser Variante nur durch die Deklaration "caption-side" möglich. D.h. der caption-Tag kann nicht
+            einfach als letztes Kind-Element im table-Tag platziert werden, um den Titel unterhalb der Tabelle zu rendern. Er muss oben an der ersten Position
+            bleiben und nur die Deklaration "caption-side" auf bottom gesetzt werden. Hier ein Beispiel:
+          </p>
+
+          <pre>
+&lt;style&gt;
+table caption {
+  caption-side: bottom;
+}
+&lt;/style&gt;
+
+&lt;table&gt;
+  &lt;caption&gt;Protagonisten der Science-Fiction Geschichte Captain Future&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Charakter&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Curtis Newton&lt;/td&gt;
+    &lt;td&gt;Captain Future&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Prof. Simon Wright&lt;/td&gt;
+    &lt;td&gt;Das lebende Gehirn&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Grag&lt;/td&gt;
+    &lt;td&gt;Roboter&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Otho&lt;/td&gt;
+    &lt;td&gt;Android&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre
+          >
+
+          <h2>2. figcaption-Tag</h2>
+
+          <p>
+            Die zweite Variante zur Erstellung einer table caption ist die Verwendung des figure-Tags kombiniert mit dem dazugehörigen figcaption-Tag. Im
+            Gegensatz zum caption-Tag ist figure und figcaption nicht sehr spezifisch, sondern dient der Repräsentation von Bildern, Grafiken, Tabellen,
+            Diagrammen, Embeds etc. Während es sich beim figure-Tag um ein semantisches Wrapper-Element handelt, ist die figcaption der eigentliche Tag, in dem
+            die Tabellenüberschrift definiert wird.
+          </p>
+
+          <p>
+            Der figcaption-Tag darf ausschließlich als erstes oder als letztes Kind-Element innerhalb eines figure-Tags definiert werden, sonst ist es invalide.
+            Die Darstellung des Titels oberhalb oder unterhalb der Tabelle ist in dieser Variante im Gegensatz zum caption-Tag nur durch die Platzierung der
+            figcaption an der richtigen Position im HTML-Quellcode möglich. D.h. um die table caption unterhalb der Tabelle zu rendern, muss man nur den
+            figcaption-Tag an die letzte Position innerhalb des figure-Tags schieben. Hier ein Beispiel:
+          </p>
+
+          <pre>
+&lt;figure&gt;
+    &lt;table&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Charakter&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Curtis Newton&lt;/td&gt;
+        &lt;td&gt;Captain Future&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Prof. Simon Wright&lt;/td&gt;
+        &lt;td&gt;Das lebende Gehirn&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Grag&lt;/td&gt;
+        &lt;td&gt;Roboter&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Otho&lt;/td&gt;
+        &lt;td&gt;Android&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;figcaption&gt;Protagonisten der Science-Fiction Geschichte Captain Future&lt;/figcaption&gt;
+&lt;/figure&gt;
+</pre
+          >
+        </article>
+      </main>
+    </div>
+    <footer>
+      &copy 2022-2023
+      <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
+    </footer>
+  </body>
+</html>

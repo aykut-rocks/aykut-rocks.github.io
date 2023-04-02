@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Texte als Maske für Hintergründe - HTML/CSS Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Texte als Maske für Hintergründe" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .text-mask-first-step {
+        display: inline-block;
+        font-family: helvetica;
+        font-size: 32px;
+        font-weight: 700;
+        text-transform: uppercase;
+        background-image: linear-gradient(45deg, #fa8bff 0%, #2bd2ff 52%, #2bff88 90%);
+        color: #fa8bff;
+      }
+      .text-mask-second-step {
+        display: inline-block;
+        font-family: helvetica;
+        font-size: 32px;
+        font-weight: 700;
+        text-transform: uppercase;
+        background-clip: text;
+        -webkit-background-clip: text;
+        text-fill-color: transparent;
+        -webkit-text-fill-color: transparent;
+        background-image: linear-gradient(45deg, #fa8bff 0%, #2bd2ff 52%, #2bff88 90%);
+        color: #fa8bff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid-container grid-container--article">
+      <nav>
+        <h1>Beiträge</h1>
+        <ol>
+          <li><a href="kurzschreibweise-top-right-bottom-left.html">Kurzschreibweise für top, right, bottom, left</a></li>
+          <li><a href="texte-als-maske-fuer-hintergruende.html">Texte als Maske für Hintergründe</a></li>
+          <li><a href="der-irrtum-mit-root-em.html">Der Irrtum mit root em</a></li>
+          <li><a href="horizontales-menue-mit-trennern.html">Horizontales Menü mit Trennern</a></li>
+          <li>
+            <a href="steuerung-der-spezifizitaet-bei-mehreren-attributen.html">Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</a>
+          </li>
+          <li><a href="inline-svg-als-background-image-ueber-css-variablen.html">Inline-SVG als background-image über CSS-Variablen</a></li>
+          <li>
+            <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
+          </li>
+        </ol>
+      </nav>
+      <main>
+        <article>
+          <h1>Texte als Maske für Hintergründe</h1>
+          <h4><i>Autor: Aykut Şensoy, Datum: <time datetime="2023-01-15">15.01.2023</time></i></h4>
+          <p>
+            CSS ist mittlerweile so mächtig, dass es mit einer Fülle an Features wie Filtern, Masken, Blend-Modi, Verläufen, Transitionen, Animationen,
+            Trasformationen, etc. eine unendliche Menge an Möglichkeiten bietet fantastische visuelle Effekte umzusetzen. Ich möchte hier eine einfache
+            Möglichkeit zeigen, wie man auch ohne mix-blend-mode mit ganz wenigen Schritten einen Text mit Verlaufseffekt erzeugen kann.
+          </p>
+
+          <h2>1. Einen HTML-Container erzeugen</h2>
+
+          <pre>
+&lt;div class="text-mask"&gt;CSS is awesome&lt;/div&gt;
+</pre
+          >
+
+          <p>Im ersten Schritt wird ein einfacher HTML-Container mit einem beliebigen Textinhalt erstellt.</p>
+
+          <h2>2. Grundlegende Styles definieren</h2>
+
+          <p>
+            Im zweiten Schritt werden die grundlegenden Deklarationen gemacht. Für diesen Effekt ist nur die Property background-image essentiell. Es kann sich
+            hier wie in diesem Beispiel um einen Verlauf handeln oder auch um ein Hintergrundbild. Im Grunde ist alles möglich, was hier mit CSS background
+            möglich ist. Die restlichen Deklarationen dienen im wesentlichen nur dafür einen großen flächigen Text über dem Hintergrund zu definieren, welches
+            uns im nächsten Schritt als Transparenzmaske dienen soll.
+          </p>
+
+          <pre>
+&lt;style&gt;
+.text-mask {
+  display: inline-block;
+  font-family: helvetica;
+  font-size: 64px;
+  text-transform: uppercase;
+  background-image: linear-gradient(45deg, #fa8bff 0%, #2bd2ff 52%, #2bff88 90%);
+  color: #fa8bff;
+}
+&lt;/style&gt;
+</pre
+          >
+
+          <div class="text-mask-first-step">CSS is awesome</div>
+
+          <h2>3. Masken-Effekt hinzufügen</h2>
+
+          <p>
+            Im dritten Schritt weisen wir den eigentlichen Effekt zu. Mit "background-clip" wird der Hintergrund geclipt und mit "text-fill-color" wird die
+            Farbfüllung des Textes auf transparent gestellt. Et voilà! Der Hintergrund scheint durch den Text und der Rest wird abgeschnitten. Das ist möglich,
+            weil im Grunde Text ja nur aus Vektorinformationen besteht und somit als Maske eingesetzt werden kann.
+          </p>
+
+          <pre>
+&lt;style&gt;
+.text-mask {
+  ...
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+&lt;/style&gt;
+</pre
+          >
+
+          <div class="text-mask-second-step">CSS is awesome</div>
+
+          <p>
+            Auch wenn alle modernen Browser diese Features unterstützen, muss für beide Properties zur Zeit noch der vendor-prefix -webkit- angewendet werden.
+            Mit der richtigen Autoprefixer Konfiguration, sollte das im Idealfall ja auch automatisch passieren. Sonst könnt ihr ja immer noch bei "caniuse.com"
+            den genauen Browsersupport nachschauen.
+          </p>
+        </article>
+      </main>
+    </div>
+    <footer>
+      &copy 2022-2023
+      <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
+    </footer>
+  </body>
+</html>
