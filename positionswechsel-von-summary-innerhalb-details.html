@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Positionswechsel von summary innerhalb details - HTML/CSS Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Positionswechsel von summary innerhalb details" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .details-wrapper {
+        display: grid;
+        background-color: #fff;
+        font-family: sans-serif;
+        color: #000;
+        padding: 8px;
+      }
+      details {
+        display: contents;
+      }
+      details p {
+        margin: 0;
+      }
+      details summary {
+        font-weight: 700;
+        cursor: pointer;
+      }
+      details summary:hover {
+        color: #900;
+      }
+      details[open] summary {
+        order: 1;
+        padding-top: 8px;
+      }
+      .details-wrapper--marker details summary {
+        list-style-type: none;
+      }
+      .details-wrapper--marker details summary::-webkit-details-marker {
+        display: none;
+      }
+      .details-wrapper--marker details summary::before {
+        display: inline-block;
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 12px solid #000;
+        margin-right: 6px;
+      }
+      .details-wrapper--marker details summary:hover::before {
+        border-top: 12px solid #900;
+      }
+      .details-wrapper--marker details[open] summary::before {
+        transform: rotate(180deg);
+      }
+      .details-wrapper--text details summary::after {
+        content: attr(data-closed);
+      }
+      .details-wrapper--text details[open] summary::after {
+        content: attr(data-open);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid-container grid-container--article">
+      <nav>
+        <h1>Beiträge</h1>
+        <ol>
+          <li><a href="kurzschreibweise-top-right-bottom-left.html">Kurzschreibweise für top, right, bottom, left</a></li>
+          <li><a href="texte-als-maske-fuer-hintergruende.html">Texte als Maske für Hintergründe</a></li>
+          <li><a href="der-irrtum-mit-root-em.html">Der Irrtum mit root em</a></li>
+          <li><a href="horizontales-menue-mit-trennern.html">Horizontales Menü mit Trennern</a></li>
+          <li>
+            <a href="steuerung-der-spezifizitaet-bei-mehreren-attributen.html">Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</a>
+          </li>
+          <li><a href="inline-svg-als-background-image-ueber-css-variablen.html">Inline-SVG als background-image über CSS-Variablen</a></li>
+          <li>
+            <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
+          </li>
+          <li><a href="detaillierte-kontrolle-beim-dekorieren-von-verweisen.html">Detaillierte Kontrolle beim Dekorieren von Verweisen</a></li>
+          <li><a href="positionswechsel-von-summary-innerhalb-details.html">Positionswechsel von summary innerhalb details</a></li>
+        </ol>
+      </nav>
+      <main>
+        <article>
+          <h1>Positionswechsel von summary innerhalb details</h1>
+          <h4>
+            <i>Autor: Aykut Şensoy, Datum: <time datetime="2023-04-15">15.04.2023</time></i>
+          </h4>
+          <p>
+            Unter einem Video-Player sollten Detailinformationen zu dem aktuellen Video gerendert werden. Um die Detailinformationen möglichst zugänglich zu
+            gestalten, war die Anforderung vom SEO-Team diese semantisch korrekt mit dem details- und summary-Tag umzusetzen. Wir hatten bereits eine bestehende
+            Lösung. Diese war aber aufwendig mit JavaScript umgesetzt und die Verschachtelung der semantischen Elemente war invalide. Hinzu kam vom UX-Team die
+            Anforderung, dass beim Aufklappen der Details, die Summary unter die Detailinformationen rutschen sollte und beim Zuklappen wieder zurück nach oben.
+            Dabei sollte ein Pfeil neben der Summary bei geschlossenem Zustand nach unten zeigen und bei geöffnetem Zustand nach oben. Weiterhin sollte sich der
+            Text bei geöffnetem Zustand von "Video-Details einblenden" in "Video-Details ausblenden" ändern. Ich war sicher, dass man das Ganze auch ohne
+            JavaScript valide umsetzen kann. Am Ende war die Lösung zwar einfach, aber der Weg dahin ganz und gar nicht, sondern erforderte einschlägiges CSS
+            Know-how. Ich zeige hier meinen Lösungsansatz in drei Teilen.
+          </p>
+
+          <h2>Teil 1: Position von summary wechseln</h2>
+          <p>
+            Die erste Herausforderung besteht darin, den summary-Tag beim Öffnen unter dem details-Tag zu positionieren. Mit der Deklaration "order" bietet das
+            flexbox- oder das grid-layout-module das perfekte Toolset, um Elemente in ihrer Reihenfolge zu verändern. Das Problem dabei ist: Sie lassen sich
+            nicht auf den details-Tag anwenden, da grid und flexbox nur auf strukturelle Tags anwendbar sind.
+          </p>
+          <p><b>Folgendes Beispiel funktioniert nicht:</b></p>
+          <pre>
+&lt;style&gt;
+details {
+  display: grid;
+}
+
+details[open] summary {
+  order: 1;
+}
+&lt;/style&gt;
+
+&lt;details&gt;
+  &lt;summary&gt;Video-Details einblenden&lt;/summary&gt;
+  &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/p&gt;
+&lt;/details&gt;
+</pre
+          >
+          <p>
+            Um dieses Problem zu lösen, muss man hier tief in die CSS-Trickkiste greifen und ein ganz besonderes CSS-Feature nutzen. Es gibt nämlich neben grid
+            und flex nicht nur die üblichen display-types, sondern auch das weniger bekannte <code>display: contents;</code>. Einige haben eventuell davon
+            gehört oder gelesen, aber wissen nicht so recht, wofür sie es in der Praxis anwenden können. Der display-type contents gibt den Inhalt eines Tags
+            sozusagen an das Eltern-Element frei, in dem er ignoriert wird. Das mache ich mir zu Nutze und definiere einen Wrapper um den details-Tag, wende
+            darauf <code>display: grid;</code> an und hebele mit <code>display: contents;</code> den details-Tag aus.
+          </p>
+          <p><b>Hier das funktionierende Beispiel mit den wesentlichen Definitionen:</b></p>
+          <pre>
+&lt;style&gt;
+.details-wrapper {
+  display: grid;
+}
+
+details {
+  display: contents;
+}
+
+details[open] summary {
+  order: 1;
+}
+&lt;/style&gt;
+
+&lt;div class="details-wrapper"&gt;
+  &lt;details&gt;
+    &lt;summary&gt;Video-Details einblenden&lt;/summary&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/p&gt;
+  &lt;/details&gt;
+&lt;/div&gt;
+</pre
+          >
+          <div class="details-wrapper">
+            <details>
+              <summary>Video-Details einblenden</summary>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pellentesque, augue vel congue varius, nisi sapien elementum nulla, et molestie
+                nunc ligula nec arcu. Nullam efficitur nisi eget suscipit dignissim. Maecenas vehicula malesuada est at suscipit. Nunc quis mollis dui.
+                Vestibulum egestas sem tempus lorem eleifend lacinia. Quisque vel dolor vel felis fermentum dictum sollicitudin quis magna. Cras sollicitudin
+                sed mi eu congue. Vestibulum sollicitudin nec dui nec sollicitudin. Nulla facilisi. Maecenas sollicitudin, neque ut elementum egestas, tellus
+                justo imperdiet urna, non finibus metus quam nec magna. Vivamus iaculis eleifend eros at bibendum.
+              </p>
+            </details>
+          </div>
+          <p>
+            An diesem Beispiel ist zu sehen, dass der Wechsel der summary-Position nun wie erwartet funktioniert. Als nächstes muss der Pfeil-Marker angepasst
+            werden, da er sich nicht wie erwartet verhält.
+          </p>
+
+          <h2>Teil 2: Pfeil an summary rotieren</h2>
+          <p>
+            Die zweite Herausforderung besteht darin, den Pfeil-Marker initial nach unten zu zeigen und beim Öfnnen um 180 Grad zu rotieren, damit die Spitze
+            nach oben zeigt. Es ist zwar möglich den Pfeil-Marker mit dem Pseudo-Element ::marker zu formatieren, aber auch hier besteht ein Problem.
+            Transformationen lassen sich nicht auf Pseudo-Elemente anwenden, d.h. man kann mit rotate() den Pfeil-Marker nicht nach unten oder oben drehen.
+          </p>
+          <p><b>Folgendes Beispiel funktioniert nicht:</b></p>
+          <pre>
+&lt;style&gt;
+details summary::marker {
+  transform: rotate(90deg);
+}
+
+details[open] summary::marker {
+  transform: rotate(270deg)
+}
+</pre
+          >
+          <p>
+            Um dieses Problem zu lösen, muss man den default-Marker ausblenden und mit ::before einen eigenen Marker umsetzen. Aber Achtung, auch hier muss man
+            aufpasseen. Man kann nicht einfach <code>summary::marker { display: none }</code> deklarieren, das ist invalide und hat keinen Effekt. Dafür muss
+            man wissen, dass der summary-Tag den display-type list-item hat. D.h. der summary-Marker entspricht einem Bullet-Point wie bei einem Listen-Element
+            und lässt sich nur mit <code>summary { list-style-type: none }</code> ausblenden. Leider muss man für Safari (das neue IE11 der Web-Entwickler),
+            noch zusätzlich die legacy-Schreibweise <code>summary::-webkit-details-marker { display: none; }</code> definieren. Chrome hat den Support für diese
+            legacy-Schreibweise in den aktuellen Browser-Versionen bereits wieder entfernt.
+          </p>
+          <p><b>Hier das funktionierende Beispiel mit den wesentlichen Definitionen:</b></p>
+          <pre>
+&lt;style&gt;
+details summary {
+  list-style-type: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::before {
+  display: inline-block;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 12px solid #000;
+  margin-right: 6px;
+}
+
+details[open] summary::before {
+  transform: rotate(180deg);
+}
+&lt;/style&gt;
+</pre
+          >
+          <div class="details-wrapper details-wrapper--marker">
+            <details>
+              <summary>Video-Details einblenden</summary>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pellentesque, augue vel congue varius, nisi sapien elementum nulla, et molestie
+                nunc ligula nec arcu. Nullam efficitur nisi eget suscipit dignissim. Maecenas vehicula malesuada est at suscipit. Nunc quis mollis dui.
+                Vestibulum egestas sem tempus lorem eleifend lacinia. Quisque vel dolor vel felis fermentum dictum sollicitudin quis magna. Cras sollicitudin
+                sed mi eu congue. Vestibulum sollicitudin nec dui nec sollicitudin. Nulla facilisi. Maecenas sollicitudin, neque ut elementum egestas, tellus
+                justo imperdiet urna, non finibus metus quam nec magna. Vivamus iaculis eleifend eros at bibendum.
+              </p>
+            </details>
+          </div>
+          <p>
+            An diesem Beispiel ist zu sehen, dass der Pfeil-Marker nun wie erwartet funktioniert. Ich habe hier den Pfeil-Marker mit dem border-Trick umgesetzt.
+            Es gibt sicher noch viele andere Möglichkeiten ein Pfeil-Symbol mit ::before zu erzeugen. Im nächsten Schritt muss der Text sich noch von
+            "einblenden" in "ausblenden" ändern.
+          </p>
+
+          <h2>Teil 3: Text in summary ändern</h2>
+          <p>
+            Die dritte Herausforderung besteht darin, den Text zu ändern, wenn die Detailinformationen offen sind. Das ist eigentlich keine Aufgabe für CSS,
+            daher wurde sie im richtigen Projekt auch mit einem JavaScript-Framework gelöst. Ich möchte aber dennoch hier eine Möglichkeit zeigen, wie man das
+            bedingt in CSS lösen kann. Ich mache mir dafür wieder ein sehr spezielles CSS-Feature zu Nutze, welches die content-Deklaration bei Pseudo-Elementen
+            bietet, nämlich die attr() Eigenschaft. Dadurch ist es möglich z.B. aus einem data-Attribut den Inhalt auszulesen und der content-Deklaration
+            zuzuweisen.
+          </p>
+          <p><b>Hier das funktionierende Beispiel mit den wesentlichen Definitionen:</b></p>
+          <pre>
+&lt;style&gt;
+details summary::after {
+  content: attr(data-closed);
+}
+
+details[open] summary::after {
+  content: attr(data-open);
+}
+&lt;/style&gt;
+
+&lt;div class="details-wrapper"&gt;
+  &lt;details&gt;
+    &lt;summary data-closed="&amp;nbsp;einblenden" data-open="&amp;nbsp;ausblenden"&gt;Video-Details&lt;/summary&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/p&gt;
+  &lt;/details&gt;
+&lt;/div&gt;
+</pre
+          >
+          <div class="details-wrapper details-wrapper--marker details-wrapper--text">
+            <details>
+              <summary data-closed="&nbsp;einblenden" data-open="&nbsp;ausblenden">Video-Details</summary>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam pellentesque, augue vel congue varius, nisi sapien elementum nulla, et molestie
+                nunc ligula nec arcu. Nullam efficitur nisi eget suscipit dignissim. Maecenas vehicula malesuada est at suscipit. Nunc quis mollis dui.
+                Vestibulum egestas sem tempus lorem eleifend lacinia. Quisque vel dolor vel felis fermentum dictum sollicitudin quis magna. Cras sollicitudin
+                sed mi eu congue. Vestibulum sollicitudin nec dui nec sollicitudin. Nulla facilisi. Maecenas sollicitudin, neque ut elementum egestas, tellus
+                justo imperdiet urna, non finibus metus quam nec magna. Vivamus iaculis eleifend eros at bibendum.
+              </p>
+            </details>
+          </div>
+          <p>
+            An diesem Beispiel sieht man, wie der Text sich wie gewünscht beim Öffnen und Schließen der Details verändert. Ich habe dafür an den summary-Tag
+            zwei data-Attribute mit den notwendigen Texten und einem non-breaking-space davor definiert. Ich nutze hier das Pseudo-Element ::after, da zum einen
+            ::before mit dem Pfeil-Marker belegt ist und zum anderen in diesem Fall der sich ändernde Text ohnehin am Ende steht.
+          </p>
+
+          <h2>Resümee</h2>
+          <p>
+            Dieses Beispiel zeigt deutlich, dass für viele visuelle Darstellungen im Browser oft kein JavaScript notwendig ist, sondern mit den mächtigen
+            Features von HTML/CSS schlanke und elegante Lösungen auch ohne JavaScript möglich sind. Zudem werden alle Anforderungen an Semantik, Accessibility
+            und Validität erfüllt und es ist zudem auch performanter.
+          </p>
+        </article>
+      </main>
+    </div>
+    <footer>
+      &copy 2023
+      <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
+    </footer>
+  </body>
+</html>

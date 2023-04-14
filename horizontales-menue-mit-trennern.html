@@ -48,12 +48,16 @@
           <li>
             <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
           </li>
+          <li><a href="detaillierte-kontrolle-beim-dekorieren-von-verweisen.html">Detaillierte Kontrolle beim Dekorieren von Verweisen</a></li>
+          <li><a href="positionswechsel-von-summary-innerhalb-details.html">Positionswechsel von summary innerhalb details</a></li>
         </ol>
       </nav>
       <main>
         <article>
           <h1>Horizontales Menü mit Trennern</h1>
-          <h4><i>Autor: Aykut Şensoy, Datum: <time datetime="2023-02-15">15.02.2023</time></i></h4>
+          <h4>
+            <i>Autor: Aykut Şensoy, Datum: <time datetime="2023-02-15">15.02.2023</time></i>
+          </h4>
           <p>
             Ein horizontales Menü mit Trennern begegnet uns häufig im Footer einer Webseite. Oft sind es mehrzeilige Menüpunkte, die durch einen Punkt oder
             Strich getrennt sind. Das Problem dabei ist, dass man zwar in den einzelnen Zeilen zwischen den Menüpunkten den Trenner gerne haben möchte, aber
@@ -116,7 +120,7 @@ menu li::after {
           </menu>
           <p>
             Als Nächstes schauen wir uns die Lösung an, die das gewünschte Ergebnis erzeugt. Zur Lösung dieses Problems wird eine besondere Eigenart der Browser
-            ausgenutzt. Wenn nämlich im Browser Inline-Elemente automatisch umbrechen, kollabieren die Leerzeichen am Ende der Zeile. Das muss auch so sein,
+            ausgenutzt. Wenn nämlich im Browser inline-Elemente automatisch umbrechen, kollabieren die Leerzeichen am Ende der Zeile. Das muss auch so sein,
             sonst würde ja immer am Anfang der Zeile der Text mit einem Leerzeichen eingerückt sein. Diese Eigenschaft der Browser machen wir uns nun zu Nutze.
             Dafür muss man nur die Art, wie man das Pseudo-Element ::after definiert, etwas umschreiben. Anstatt in der content-Property den Trenner zu
             definieren, definiert man hier nur ein Leerzeichen. Der Trenner wird dann als background-image zugewiesen. In diesem Fall als inline SVG.<br />
@@ -155,7 +159,7 @@ menu li::after {
       </main>
     </div>
     <footer>
-      &copy 2022-2023
+      &copy 2023
       <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
     </footer>
   </body>

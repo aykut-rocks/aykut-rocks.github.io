@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="index, follow" />
     <meta name="description" content="HTML/CSS Tutorials" />
+    <meta name="google-site-verification" content="dbB7rPykwT8ae5rJ4c5XmPvZ6HKP7ZK0gjgv8nwZRCY" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -24,6 +25,8 @@
           <li>
             <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
           </li>
+          <li><a href="detaillierte-kontrolle-beim-dekorieren-von-verweisen.html">Detaillierte Kontrolle beim Dekorieren von Verweisen</a></li>
+          <li><a href="positionswechsel-von-summary-innerhalb-details.html">Positionswechsel von summary innerhalb details</a></li>
         </ol>
       </nav>
       <main>
@@ -98,6 +101,30 @@
             <span><a href="zwei-varianten-fuer-eine-table-caption.html">Weiterlesen...</a></span>
           </p>
         </article>
+        <article>
+          <h1>Detaillierte Kontrolle beim Dekorieren von Verweisen</h1>
+          <p>
+            Sehr lange Zeit hatte man als Web-Entwickler mit den Einschränkungen von text-decoration zu kämpfen. Es war weder möglich den Abstand zwischen Text
+            und Unterstrich sinnvoll zu steuern, noch unterschiedliche Farben für Text und Linie zuzuweisen. Auch die Dicke der Linie war nicht individuell
+            veränderbar. Um solche speziellen UX-Anforderungen zu erfüllen, musste man die text-decoration ausblenden und sich mit padding und box-shadow
+            behelfen.
+            <span><a href="detaillierte-kontrolle-beim-dekorieren-von-verweisen.html">Weiterlesen...</a></span>
+          </p>
+        </article>
+        <article>
+          <h1>Positionswechsel von summary innerhalb details</h1>
+          <p>
+            Unter einem Video-Player sollten Detailinformationen zu dem aktuellen Video gerendert werden. Um die Detailinformationen möglichst zugänglich zu
+            gestalten, war die Anforderung vom SEO-Team diese semantisch korrekt mit dem details- und summary-Tag umzusetzen. Wir hatten bereits eine bestehende
+            Lösung. Diese war aber aufwendig mit JavaScript umgesetzt und die Verschachtelung der semantischen Elemente war invalide. Hinzu kam vom UX-Team die
+            Anforderung, dass beim Aufklappen der Details, die Summary unter die Detailinformationen rutschen sollte und beim Zuklappen wieder zurück nach oben.
+            Dabei sollte ein Pfeil neben der Summary bei geschlossenem Zustand nach unten zeigen und bei geöffnetem Zustand nach oben. Weiterhin sollte sich der
+            Text bei geöffnetem Zustand von "Video-Details einblenden" in "Video-Details ausblenden" ändern. Ich war sicher, dass man das Ganze auch ohne
+            JavaScript valide umsetzen kann. Am Ende war die Lösung zwar einfach, aber der Weg dahin ganz und gar nicht, sondern erforderte einschlägiges CSS
+            Know-how. Ich zeige hier meinen Lösungsansatz in drei Teilen.
+            <span><a href="positionswechsel-von-summary-innerhalb-details.html">Weiterlesen...</a></span>
+          </p>
+        </article>
       </main>
       <aside>
         <h1>Über mich</h1>
@@ -112,8 +139,8 @@
               modernen Browser bieten. Diese Seite richtet sich ausschließlich an Personen mit einschlägiger HTML/CSS Erfahrung.
             </p>
             <p>
-              Es handelt sich hier um ein rein privat betriebenes Projekt bestehend aus reinen HTML/CSS-Seiten. Diese Website enthält kein JavaScript, keine
-              Werbung, kein Tracking, keine externen Links, keine Embeds oder sonstige lizenzpflichtigen Inhalte, die rechtlich bedenklich wären.
+              Es handelt sich hier um ein rein privat betriebenes Projekt bestehend aus reinen HTML/CSS-Seiten. Diese Website enthält keine Werbung, kein
+              Tracking, keine externen Links, keine Embeds oder sonstigen Inhalte, die rechtlich bedenklich oder lizenzpflichtig sind.
             </p>
             <p>
               Falls Ihr vor difizilen HTML/CSS Herausforderungen steht, könnt Ihr mich gerne kontaktieren. Wenn bei dem Thema mein Interesse geweckt wird,
@@ -125,7 +152,7 @@
       </aside>
     </div>
     <footer>
-      &copy 2022-2023
+      &copy 2023
       <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
     </footer>
   </body>

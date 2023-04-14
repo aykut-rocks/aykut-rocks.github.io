@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Detaillierte Kontrolle beim Dekorieren von Verweisen - HTML/CSS Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Detaillierte Kontrolle beim Dekorieren von Verweisen" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .foo,
+      .bar {
+        display: inline-block;
+        padding: 8px;
+        background-color: #fff;
+        font-family: sans-serif;
+        font-weight: 700;
+        font-size: 21px;
+        line-height: 1.5;
+      }
+      .foo a {
+        text-decoration: none;
+        color: #000;
+        box-shadow: inset 0 -1px #900;
+        padding-bottom: 2px;
+      }
+
+      .foo a:hover {
+        color: #900;
+        box-shadow: 0 -2px inset #000;
+      }
+
+      .bar a {
+        color: #000;
+        text-decoration: underline solid #900 1px;
+        text-underline-position: under;
+        text-underline-offset: 2px;
+      }
+
+      .bar a:hover {
+        color: #900;
+        text-decoration: underline solid #000 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid-container grid-container--article">
+      <nav>
+        <h1>Beiträge</h1>
+        <ol>
+          <li><a href="kurzschreibweise-top-right-bottom-left.html">Kurzschreibweise für top, right, bottom, left</a></li>
+          <li><a href="texte-als-maske-fuer-hintergruende.html">Texte als Maske für Hintergründe</a></li>
+          <li><a href="der-irrtum-mit-root-em.html">Der Irrtum mit root em</a></li>
+          <li><a href="horizontales-menue-mit-trennern.html">Horizontales Menü mit Trennern</a></li>
+          <li>
+            <a href="steuerung-der-spezifizitaet-bei-mehreren-attributen.html">Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</a>
+          </li>
+          <li><a href="inline-svg-als-background-image-ueber-css-variablen.html">Inline-SVG als background-image über CSS-Variablen</a></li>
+          <li>
+            <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
+          </li>
+          <li><a href="detaillierte-kontrolle-beim-dekorieren-von-verweisen.html">Detaillierte Kontrolle beim Dekorieren von Verweisen</a></li>
+          <li><a href="positionswechsel-von-summary-innerhalb-details.html">Positionswechsel von summary innerhalb details</a></li>
+        </ol>
+      </nav>
+      <main>
+        <article>
+          <h1>Detaillierte Kontrolle beim Dekorieren von Verweisen</h1>
+          <h4>
+            <i>Autor: Aykut Şensoy, Datum: <time datetime="2023-04-15">15.04.2023</time></i>
+          </h4>
+          <p>
+            Sehr lange Zeit hatte man als Web-Entwickler mit den Einschränkungen von text-decoration zu kämpfen. Es war weder möglich den Abstand zwischen Text
+            und Unterstrich sinnvoll zu steuern, noch unterschiedliche Farben für Text und Linie zuzuweisen. Auch die Dicke der Linie war nicht individuell
+            veränderbar. Um solche speziellen UX-Anforderungen zu erfüllen, musste man die text-decoration ausblenden und sich mit padding und box-shadow
+            behelfen.
+          </p>
+          <p>
+            Ich möchte hier im ersten Schritt ein Beispiel für eine text-decoration mit hover-Effekt zeigen, wie ich es vor ein paar Jahren mit einem Hack
+            gelöst habe. Im zweiten Schritt zeige ich, wie man das Gleiche mit den neuen CSS Möglichkeiten viel eleganter lösen kann.
+          </p>
+          <h2>Legacy Lösung</h2>
+          <pre>
+&lt;style&gt;
+a {
+  text-decoration: none;
+  color: black;
+  box-shadow: inset 0 -1px red;
+  padding-bottom: 2px;
+}
+
+a:hover {
+  color: grey;
+  box-shadow: 0 -2px inset green;
+}
+&lt;/style&gt;
+</pre
+          >
+          <p class="foo"><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</a></p>
+          <p>
+            Wie man an diesem Beispiel sieht, musste ich text-decoration auf "none" setzen und dann mit einem inset box-shadow eine Linie simulieren, die ich
+            dann auch in der Farbe und Dicke steuern konnte. Mit diesem Hack war es dann auch möglich den Abstand zwischen Text und Unterstrich mit
+            padding-bottom zu verändern.
+          </p>
+          <h2>Moderne Lösung (Langschreibweise)</h2>
+          <pre>
+&lt;style&gt;
+a {
+  color: black;
+  text-decoration-line: underline;
+  text-decoration-color: red;
+  text-decoration-style: solid;
+  text-decoration-thickness: 1px;
+  text-underline-position: under;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: grey;
+  text-decoration-color: green;
+  text-decoration-thickness: 2px;
+}
+&lt;/style&gt;
+</pre
+          >
+          <p class="bar"><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</a></p>
+          <p>
+            Mit den neuen CSS Möglichkeiten hat man volle und sehr detaillierte Kontrolle über die Gestaltung der text-decoration. Man kann nicht nur die Farbe
+            und die Dicke unabhängig vom Text steuern, sondern auch den Abstand des Unterstrichs zum Text mit zwei speziellen Deklarationen. Mit
+            <code>text-decoration-position: under;</code> wird der Unterstrich unter der Unterlänge der Glyphen platziert. Mit
+            <code>text-decoration-offset: 2px;</code> wird der Unterstrich nochmal um 2px nach unten verschoben. Theoretisch könnte man hier auch direkt
+            text-decoration-offset ohne text-decoration-position benutzen, um den Unterstrich nach unten zu verschieben. Wichtig hierbei ist zu wissen, dass
+            diese beiden Deklarationen, wie es im Namen auch steht, auschließlich bei <code>text-decoration-line: underline;</code> greifen, da sie bei den
+            anderen Dekorationen keinen Sinn machen.
+          </p>
+          <h2>Moderne Lösung (Kurzschreibweise)</h2>
+          <pre>
+&lt;style&gt;
+a {
+  color: black;
+  text-decoration: underline solid red 1px;
+  text-underline-position: under;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: grey;
+  text-decoration: underline solid green 2px;
+}
+&lt;/style&gt;
+</pre
+          >
+          <p>
+            Die Deklaration text-decoration wird als Kurzschreibweise eingesetzt. Es ist also die Zusammenfassung der Eigenschaften text-decoration-line,
+            text-decoration-color, text-decoration-style und text-decoration-thickness, wobei dei Reihenfolge der Definition irrelevant ist. Man muss auch nicht
+            zwingend alle Eigenschaften definieren. Was nicht explizit definiert ist, wird mit den default-Werten gerendert.
+          </p>
+          <p>
+            Ich habe bei diesem Thema nur an der Oberfläche gekratzt. Die hier erwähnten Deklarationen bieten so viele Möglichkeiten der Dekoration, so dass es
+            sich lohnt tiefgehender mit text-decoration auseinanderzusetzen. Ein Feature habe ich sogar gar nicht angesprochen, da es hier inhaltlich nicht
+            hineingepasst hat, nämlich "text-decoration-skip-ink". Ich kann daher nur empfehlen mit text-decoration herumzuspielen, um noch das eine oder andere
+            interessante Feature für sich zu entdecken.
+          </p>
+        </article>
+      </main>
+    </div>
+    <footer>
+      &copy 2023
+      <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
+    </footer>
+  </body>
+</html>
