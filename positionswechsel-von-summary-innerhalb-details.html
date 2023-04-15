@@ -193,8 +193,8 @@ details[open] summary::marker {
             Um dieses Problem zu lösen, muss man den default-Marker ausblenden und mit ::before einen eigenen Marker umsetzen. Aber Achtung, auch hier muss man
             aufpasseen. Man kann nicht einfach <code>summary::marker { display: none }</code> deklarieren, das ist invalide und hat keinen Effekt. Dafür muss
             man wissen, dass der summary-Tag den display-type list-item hat. D.h. der summary-Marker entspricht einem Bullet-Point wie bei einem Listen-Element
-            und lässt sich nur mit <code>summary { list-style-type: none }</code> ausblenden. Leider muss man für Safari (das neue IE11 der Web-Entwickler),
-            noch zusätzlich die legacy-Schreibweise <code>summary::-webkit-details-marker { display: none; }</code> definieren. Chrome hat den Support für diese
+            und lässt sich nur mit <code>summary { list-style-type: none }</code> ausblenden. Leider muss man für Safari (das neue IE11 der Web-Entwickler) noch
+            zusätzlich die legacy-Schreibweise <code>summary::-webkit-details-marker { display: none; }</code> definieren. Chrome hat den Support für diese
             legacy-Schreibweise in den aktuellen Browser-Versionen bereits wieder entfernt.
           </p>
           <p><b>Hier das funktionierende Beispiel mit den wesentlichen Definitionen:</b></p>
