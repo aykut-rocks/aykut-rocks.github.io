@@ -401,6 +401,10 @@ ol li a:active {
     .grid-container--article {
         grid-template-columns: 1fr 4fr;
   }
+
+  .grid-container--article main {
+    order: 1;
+}
 }
 nav,
 article,
