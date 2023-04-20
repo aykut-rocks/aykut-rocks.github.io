@@ -8,7 +8,7 @@
     <meta name="description" content="Horizontales Menü mit Trennern" />
     <link rel="stylesheet" href="styles.css" />
     <style>
-      menu {
+      ul {
         font-family: verdana;
         overflow: auto;
         resize: both;
@@ -18,10 +18,10 @@
         background-color: #333;
         border: 1px solid #999;
       }
-      menu li {
+      ul li {
         display: inline;
       }
-      menu li::after {
+      ul li::after {
         content: " •";
       }
       .separator li::after {
@@ -53,12 +53,12 @@
           </p>
           <p>Wir definieren zuerst das grundlegende HTML-Markup für unsere Menü-Liste nach folgendem Muster.</p>
           <pre>
-&lt;menu&gt;
+&lt;ul&gt;
   &lt;li&gt;Impressum&lt;/li&gt;
   &lt;li&gt;Hilfe&lt;/li&gt;
   &lt;li&gt;Kontakt&lt;/li&gt;
 	...
-&lt;/menu&gt;
+&lt;/ul&gt;
 </pre
           >
           <p>
@@ -73,20 +73,20 @@
             nicht ohne Weiteres mit.
           </p>
           <pre>
-menu {
+ul {
   text-align: center;
 }
 
-menu li {
+ul li {
   display: inline;
 }
 
-menu li::after {
+ul li::after {
   content:" •";
 }
 </pre
           >
-          <menu>
+          <ul>
             <li>Impressum</li>
             <li>Hilfe</li>
             <li>Kontakt</li>
@@ -99,7 +99,7 @@ menu li::after {
             <li>Archiv</li>
             <li>Newsletter</li>
             <li>FAQ</li>
-          </menu>
+          </ul>
           <p>
             Als Nächstes schauen wir uns die Lösung an, die das gewünschte Ergebnis erzeugt. Zur Lösung dieses Problems wird eine besondere Eigenart der Browser
             ausgenutzt. Wenn nämlich im Browser inline-Elemente automatisch umbrechen, kollabieren die Leerzeichen am Ende der Zeile. Das muss auch so sein,
@@ -111,14 +111,14 @@ menu li::after {
             letter-spacing kann man sehr gut die Abstände zwischen den einzelnen Listen-Elementen steuern.
           </p>
           <pre>
-menu li::after {
+ul li::after {
   content:" ";
   letter-spacing: 24px;
   background: url('data:image/svg+xml;utf8,&lt;svg width="6" height="6" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"&gt;&lt;circle cx="6" cy="6" r="6" /&gt;&lt;/svg&gt;') center center no-repeat;
 }
 </pre
           >
-          <menu class="separator">
+          <ul class="separator">
             <li>Impressum</li>
             <li>Hilfe</li>
             <li>Kontakt</li>
@@ -131,7 +131,7 @@ menu li::after {
             <li>Archiv</li>
             <li>Newsletter</li>
             <li>FAQ</li>
-          </menu>
+          </ul>
           <p>
             Sie können die Lösung testen, in dem Sie die rechte untere Ecke des Containers mit der Menü-Liste greifen und kleiner ziehen. Egal wie oft die
             Listen-ELemente umbrechen, am Ende der jeweiligen Zeilen ist niemals ein Trenner zu sehen, da das Leerzeichen, welches vom ::after erzeugt wurde,
