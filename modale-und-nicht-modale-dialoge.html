@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Modale und nicht-modale Dialoge - HTML/CSS Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Modale und nicht-modale Dialoge" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      function openNonModalDialog(element) {
+        let nonModalDialog = document.getElementById(element);
+        nonModalDialog.show();
+      }
+      function openModalDialog(element) {
+        let modalDialog = document.getElementById(element);
+        modalDialog.showModal();
+      }
+      function closeDialog(element) {
+        let dialog = document.getElementById(element);
+        dialog.close();
+      }
+    </script>
+    <style>
+      button {
+        cursor: pointer;
+      }
+
+      dialog p {
+        padding: 32px;
+        font-size: 32px;
+        font-weight: 700;
+      }
+
+      dialog button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-family: arial;
+      }
+
+      .modal-dialog-bg-color::backdrop {
+        background-color: rgb(0 0 0 / 0.7);
+      }
+
+      .modal-dialog-bg-image::backdrop {
+        background-image: url(images/tile.png);
+      }
+
+      .modal-dialog-bg-gradient::backdrop {
+        background-image: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+      }
+
+      .modal-dialog-bg-blur::backdrop {
+        backdrop-filter: blur(4px);
+      }
+
+      .modal-dialog-bg-grayscale::backdrop {
+        backdrop-filter: grayscale(1);
+      }
+
+      .modal-dialog-bg-invert::backdrop {
+        backdrop-filter: invert(1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="grid-container grid-container--article">
+      <main>
+        <article>
+          <h1>Modale und nicht-modale Dialoge</h1>
+          <h4>
+            <i>Autor: Aykut Şensoy, Datum: <time datetime="2023-05-01">01.05.2023</time></i>
+          </h4>
+          <p>
+            Mit dem dialog-Element und der Fullscreen API bietet HTML5 eine native Möglichkeit an, eine Dialog-Box im Fullscreen-Modus umsetzen. Die Fullscreen
+            API bietet mit <code>show()</code> und <code>showModal()</code> zwei Methoden an, um zu steuern, ob die Dialog-Box nicht-modal oder modal geöffnet
+            wird. Der Hintergrund der Dialog-Box kann mit dem <code>::backdrop</code> Pseudo-Element und der Deklaration <code>backdrop-filter</code> gestylt
+            werden. Ich möchte in diesem Tutorial auf die Kernfunktionalität des dialog-Elements und der Fullscreen API eingehen und eine Auswahl von
+            Styling-Möglichkeiten für die Hintergründe der Dialog-Box zeigen.
+          </p>
+
+          <h2>Grundlegende Funktionalität</h2>
+
+          <p>
+            Ein Dialog wird mit dem semantischen dialog-Tag definiert. Das dialog-Element ist initial nicht sichtbar. Es wird mit der Methode
+            <code>show()</code> als nicht-modaler Dialog oder mit <code>showModal()</code> als modaler Dialog geöffnet. Dabei setzt der Browser automatisch im
+            Quellcode das Attribut <code>open</code> an den dialog-Tag. Mit der Methode <code>close()</code> lässt sich der Dialog wieder schließen.
+          </p>
+
+          <h3>Nicht-Modaler Dialog</h3>
+          <pre>
+&lt;script&gt;
+  function openNonModalDialog(element) {
+    let nonModalDialog = document.getElementById(element);
+    nonModalDialog.show();
+  }
+  function closeDialog(element) {
+    let dialog = document.getElementById(element);
+    dialog.close();
+  }
+&lt;/script&gt;
+
+&lt;dialog id="nonModalDialog"&gt;
+  &lt;p>Nicht-Modaler Dialog&lt;/p&gt;
+  &lt;button onclick="closeDialog('nonModalDialog')"&gt;x&lt;/button&gt;
+&lt;/dialog&gt;
+
+&lt;button onclick="openNonModalDialog('nonModalDialog')"&gt;Nicht-modalen Dialog öffnen&lt;/button&gt;
+</pre
+          >
+          <dialog id="nonModalDialog">
+            <p>Nicht-modaler Dialog</p>
+            <button onclick="closeDialog('nonModalDialog')">x</button>
+          </dialog>
+          <button onclick="openNonModalDialog('nonModalDialog')">Nicht-nodalen Dialog öffnen</button>
+
+          <p>
+            Beim nicht-modalen Dialog lässt sich der Hintergrund anfassen. Wenn man die Seite scrollt, wird der Dialog mitgescrollt. Es ist nicht möglich den
+            Dialog mit der esc-Taste auf der Tastatur zu schließen.
+          </p>
+
+          <p>
+            Im Folgenden sieht man die browser-internen Styles für den nicht-modalen Dialog. Dabei sieht man, dass das dialog-Element auf
+            <code>display: none;</code> gesetzt ist. Das ist der Grund warum es initial nicht sichtbar ist. Sobald der Browser das Attribut
+            <code>open</code> setzt, greift hier der Attribut-Selektor <code>dialog[open] { display: block; }</code> und der Dialog wird sichtbar. Das
+            dialog-Element wird auf <code>position: absolute;</code> gesetzt. Das ist der Grund warum, beim Scrolling der Seite der nicht-modale Dialog
+            mitgescrollt wird.
+          </p>
+          <pre>
+dialog[open] {
+  display: block;
+}
+
+dialog {
+  display: none;
+  position: absolute;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  width: fit-content;
+  height: fit-content;
+  background-color: canvas;
+  color: canvastext;
+  margin: auto;
+  border-width: initial;
+  border-style: solid;
+  border-color: initial;
+  border-image: initial;
+  padding: 1em;
+}</pre
+          >
+
+          <h3>Modaler Dialog</h3>
+          <p>
+            Beim modalen Dialog lässt sich der Hintergrund NICHT anfassen. Wenn man die Seite scrollt, bleibt der Dialog fix an seiner Position stehen und wird
+            NICHT mit dem Hintergrund mitgescrollt. Mit dem Drücken auf die esc-Taste auf der Tastatur ist es möglich, den modalen Dialog zu schließen.
+          </p>
+
+          <pre>
+&lt;script&gt;
+  function openModalDialog(element) {
+    let modalDialog = document.getElementById(element);
+    modalDialog.showModal();
+  }
+  function closeDialog(element) {
+    let dialog = document.getElementById(element);
+    dialog.close();
+  }
+&lt;/script&gt;
+
+  &lt;dialog id="modalDialog"&gt;
+    &lt;p>Modaler Dialog&lt;/p&gt;
+    &lt;button onclick="closeDialog('modalDialog')"&gt;x&lt;/button&gt;
+  &lt;/dialog&gt;
+  
+  &lt;button onclick="openModalDialog('modalDialog')"&gt;Modalen Dialog öffnen&lt;/button&gt;
+  </pre
+          >
+          <dialog id="modalDialog">
+            <p>Modaler Dialog</p>
+            <button onclick="closeDialog('modalDialog')">x</button>
+          </dialog>
+          <button onclick="openModalDialog('modalDialog')">Modalen Dialog öffnen</button>
+
+          <p>
+            Für den modalen Dialog werden zusätzlich die folgenden browser-internen Styles gesetzt. Hier sieht man, dass für den modalen Dialog
+            <code>position: fixed;</code> definiert wird und somit <code>position: absolute;</code> überschreibt. Das ist der Grund, warum der modale Dialog
+            nicht mitscrollt.
+          </p>
+          <pre>
+dialog:modal {
+  position: fixed;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  max-width: calc((100% - 6px) - 2em);
+  max-height: calc((100% - 6px) - 2em);
+  user-select: text;
+  visibility: visible;
+  overflow: auto;
+}</pre
+          >
+
+          <h2>Hintergrund mit ::backdrop Pseudo-Element</h2>
+          <p>
+            Der Hintergrund von Dialog-Boxen kann mit dem Pseudo-Element <code>::backdrop</code> verändert werden. Dabei ist allerdings zu beachten, dass
+            <code>::backdrop</code> nur dann greift, wenn die Dialog-Box auch tatsächlich mit den bereitgestellten Methoden der Fullscreen API geöffnet wird.
+            D.h. wenn man z.B. manuell am dialog-Tag ein open Attribut definiert, dann funktioniert <code>::backdrop</code> einfach nicht. Es ist auch stets
+            darauf zu achten, zwei Doppelpunkte vor dem Schlüsselwort "backdrop" zu definieren, damit das Pseudo-Element erwartungsgemäß funktioniert. Hier sind
+            drei Beispiele. Bei ersten Beispiel handelt es sich sicherlich um die geläufigste Anforderung, einem modalen Dialog mit gedimmten Hintergrund. Im
+            zweiten Beispiel wird ein Hintergrundbild definiert. Im dritten Beispiel wird ein Farbverlauf definiert. Es ist prinzipiell alles machbar was mit
+            CSS background möglich ist. Dazu zählen auch Keyframe-Animationen, Transitions und hover-Effekte.
+          </p>
+
+          <dialog id="modalDialogBgColor" class="modal-dialog-bg-color">
+            <p>Modaler Dialog</p>
+            <button onclick="closeDialog('modalDialogBgColor')">x</button>
+          </dialog>
+
+          <dialog id="modalDialogBgImage" class="modal-dialog-bg-image">
+            <p>Modaler Dialog</p>
+            <button onclick="closeDialog('modalDialogBgImage')">x</button>
+          </dialog>
+
+          <dialog id="modalDialogBgGradient" class="modal-dialog-bg-gradient">
+            <p>Modaler Dialog</p>
+            <button onclick="closeDialog('modalDialogBgGradient')">x</button>
+          </dialog>
+
+          <pre>
+.modal-dialog-bg-color::backdrop {
+  background-color: rgb(0 0 0 / 0.7);
+}</pre
+          >
+          <button onclick="openModalDialog('modalDialogBgColor')">Dialog mit Hintergrundfarbe öffnen</button>
+          <pre>
+.modal-dialog-bg-image::backdrop {
+  background-image: url(images/tile.png);
+}</pre
+          >
+          <button onclick="openModalDialog('modalDialogBgImage')">Dialog mit Hintergrundbild öffnen</button>
+          <pre>
+.modal-dialog-bg-gradient::backdrop {
+  background-image: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+}</pre
+          >
+          <button onclick="openModalDialog('modalDialogBgGradient')">Dialog mit Hintergrundverlauf öffnen</button>
+
+          <h2>Hintergrund-Effekte mit backdrop-filter Eigenschaft</h2>
+          <p>
+            Der Hintergrund von Dialog-Boxen kann weiterhin mit der Deklaration backdrop-filter mit Filter-Effekten versehen werden. Im Grunde handelt es sich
+            um die gleichen Möglichkeiten, wie mit CSS Filtern, nur dass sie in diesem Fall speziell auf den Hintergrund von Dialog-Boxen angewendet werden
+            können. Hier sind drei Beispiele. Im ersten Beispiel wir der Hintergrund unscharf dargestellt. Im zweiten Beispiel wird der Hintergrund in
+            Graustufen dargestellt. Im dritten Beispiel wird der Hintergrund invertiert. Selbstveständlich ist mit CSS Filtern viel mehr möglich, daher empfehle
+            ich hier in einschlägigen Quellen weiterzulesen, da es hier inhaltlich den Rahmen sprengen würde.
+          </p>
+
+          <dialog id="modalDialogBgBlur" class="modal-dialog-bg-blur">
+            <p>Modaler Dialog</p>
+            <button onclick="closeDialog('modalDialogBgBlur')">x</button>
+          </dialog>
+
+          <dialog id="modalDialogBgGrayscale" class="modal-dialog-bg-grayscale">
+            <p>Modaler Dialog</p>
+            <button onclick="closeDialog('modalDialogBgGrayscale')">x</button>
+          </dialog>
+
+          <dialog id="modalDialogBgInvert" class="modal-dialog-bg-invert">
+            <p>Modaler Dialog</p>
+            <button onclick="closeDialog('modalDialogBgInvert')">x</button>
+          </dialog>
+
+          <pre>
+.modal-dialog-bg-blur::backdrop {
+  backdrop-filter: blur(4px);
+}</pre
+          >
+          <button onclick="openModalDialog('modalDialogBgBlur')">Dialog mit blur() Filter öffnen</button>
+          <pre>
+.modal-dialog-bg-grayscale::backdrop {
+  backdrop-filter: grayscale(1);
+}</pre
+          >
+          <button onclick="openModalDialog('modalDialogBgGrayscale')">Dialog mit grayscale() Filter öffnen</button>
+          <pre>
+.modal-dialog-bg-invert::backdrop {
+  backdrop-filter: invert(1);
+}</pre
+          >
+          <button onclick="openModalDialog('modalDialogBgInvert')">Dialog mit invert() Filter öffnen</button>
+
+          <h2>Autofocus und custom Styles</h2>
+          <p>
+            Wenn man eine Dialog-Box öffnet, wird der Fokus automatisch auf das erste fokussierbare Element innerhalb des dialog-Elements gesetzt. D.h. es macht
+            in der Regel Sinn z.B. den Schließen-Button als erstes Element innerhalb des dialog-Tags zu platzieren. Somit ist es möglich mit der enter-Taste auf
+            der Tastatur die Dialog-Box zu schließen. Möchte man hingegen den Fokus auf ein Element legen, wie z.B. auf einen Akzeptieren-Button, dann bietet es
+            sich an, das globale Attribut <code>autofocus</code> am gewünschten Element zu definieren, damit der Fokus automatisch auf diesem Element liegt.
+          </p>
+          <p>
+            Selbstverständlich kann man auch die browser-internen Styles für das dialog-Element überschreiben. Mit der Deklaration
+            <code>inset-inline-start</code> kann man z.B. die vertikale Position der Dialog-Box steuern. Mit <code>width/height</code> bzw.
+            <code>max-width/max-height</code> kann man z.B. die Dimensionen der Dialog-Box beeinflussen, die sich sonst am Content orientieren. Mit CSS border
+            lässt sich der standardmäßig gesetzte Rahmen der Dialog-Box indivuell gestalten.
+          </p>
+        </article>
+      </main>
+      <nav>
+        <h1>Beiträge</h1>
+        <ol>
+          <li>
+            <a href="kurzschreibweise-top-right-bottom-left.html">Kurzschreibweise für top, right, bottom, left</a>
+          </li>
+          <li>
+            <a href="texte-als-maske-fuer-hintergruende.html">Texte als Maske für Hintergründe</a>
+          </li>
+          <li>
+            <a href="der-irrtum-mit-root-em.html">Der Irrtum mit root em</a>
+          </li>
+          <li>
+            <a href="horizontales-menue-mit-trennern.html">Horizontales Menü mit Trennern</a>
+          </li>
+          <li>
+            <a href="steuerung-der-spezifizitaet-bei-mehreren-attributen.html">Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</a>
+          </li>
+          <li>
+            <a href="inline-svg-als-background-image-ueber-css-variablen.html">Inline-SVG als background-image über CSS-Variablen</a>
+          </li>
+          <li>
+            <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
+          </li>
+          <li>
+            <a href="detaillierte-kontrolle-beim-dekorieren-von-verweisen.html">Detaillierte Kontrolle beim Dekorieren von Verweisen</a>
+          </li>
+          <li>
+            <a href="positionswechsel-von-summary-innerhalb-details.html">Positionswechsel von summary innerhalb details</a>
+          </li>
+          <li>
+            <a href="modale-und-nicht-modale-dialoge.html">Modale und nicht-modale Dialoge</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <footer>
+      &copy 2023
+      <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
+    </footer>
+  </body>
+</html>
