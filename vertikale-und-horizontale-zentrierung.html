@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Vertikale und horizontale Zentrierung - HTML/CSS Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Vertikale und horizontale Zentrierung" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .container {
+        background-color: #ff0;
+        height: 300px;
+        width: 300px;
+        resize: both;
+        overflow: auto;
+      }
+      .container div {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: #80f;
+      }
+      .container--transform {
+        position: relative;
+      }
+      .container--transform div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .container--flex01 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container--flex02 {
+        display: flex;
+      }
+      .container--flex02 div {
+        margin: auto;
+      }
+      .container--grid {
+        display: grid;
+        place-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid-container grid-container--article">
+      <main>
+        <article>
+          <h1>Vertikale und horizontale Zentrierung</h1>
+          <h4>
+            <i>Autor: Aykut Şensoy, Datum: <time datetime="2023-01-01">15.05.2023</time></i>
+          </h4>
+          <p>
+            Eines der beliebtesten und häufigsten Fragen bei CSS ist die vertikale und horizontale Zentrierung eines Elements innerhalb eines variablen
+            Containers. In der Vergangenheit war es tatsächlich eine Herausforderung, weswegen es früher auch zahlreiche Artikel zu diesem Thema gab. Nicht
+            wenige Menschen haben sich an CSS-Eigenschaften, wie z.B. <code>vertical-align</code> die Zähne ausgebissen, die zwar zu Zeiten von Tabellenlayouts
+            noch zielführend waren, aber später mit anderen Layout-Konzepten nicht funktioniert haben. Mit den neuen mächtigen Features von CSS sind diese Tage
+            zum Glück vorbei und es gibt heute viele moderne Ansätze, um schnell und einfach zum Ziel zu gelangen. Ich möchte hier auf sämtliche Varianten
+            eingehen, mit denen eine vertikale und horizontale Zentrierung bei variabler Größe möglich ist.
+          </p>
+
+          <p>
+            Das ist der initiale Grundaufbau für alle nachfolgenden Beispiele. Alle Beispiele lassen sich für Testzwecke rechts unten am Container greifen und
+            skalieren (außer auf iOS-Geräten, da CSS resize aktuell noch nicht unterstützt wird).
+          </p>
+          <pre>
+&lt;style&gt;
+.container {
+  background-color: #ff0;
+  height: 300px;
+  width: 300px;
+}
+.container div {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #80f;
+}
+&lt;/style&gt;
+
+&lt;div class="container"&gt;
+  &lt;div&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre
+          >
+
+          <h3>Transform</h3>
+          <p>
+            Bei dieser Variante wird der Content am relativen Container absolut positioniert. Mit den Deklarationen <code>top</code> und <code>left</code> auf
+            50% wird die obere linke Ecke des Elements mittig positioniert. Damit das Element dann selbst im Container zentriert wird, wird sie vertikal und
+            horizontal negativ um 50% seiner eigenen Dimensionen verschoben, damit der Mittelpunkt des Elements genau in der Mitte des Containers platziert
+            wird.
+          </p>
+          <div class="container container--transform">
+            <div></div>
+          </div>
+          <pre>
+.container {
+  position: relative;
+}
+.container div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</pre
+          >
+          <h3>Flexbox Variante 1</h3>
+          <p>
+            Bei dieser Variante wird der Content automatisch zu einem flex-item, in dem der Container mit <code>display: flex;</code> zu einem Flex-Container
+            definiert wird. Mit <code>align-items</code> und <code>justify-content</code> wird das flex-item vertikal und horizontal innerhalb des
+            Flex-Containers zentriert. Hierbei handelt es sich heute um die gängigste Methode zur vertikalen und horizontalen Zentrierung.
+          </p>
+          <div class="container container--flex01">
+            <div></div>
+          </div>
+          <pre>
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</pre
+          >
+          <h3>Flexbox Variante 2</h3>
+          <p>
+            Diese Variante, die ebenfalls wie die vorherige Methode flexbox nutzt, ist pure CSS-Magie. Anstatt üblicherweise <code>align-items</code> und
+            <code>justify-content</code> zu verwenden, wird einfach das flex-item selbst auf <code>margin: auto;</code> gesetzt. Diese Lösung hat schon so manch
+            einen in Erstaunen versetzt. Im Normalfall würde man erwarten, dass das Element sich nur horizontal zentriert, aber hier handelt es sich nicht um
+            ein Block-Element, sondern um ein Flex-Element. Das Flex-Element erweitert automatisch seine Außenabstände, um den zusätzlichen Platz im
+            Flex-Container zu belegen, dadurch wird es nicht nur horizontal, sondern auch vertikal zentriert.
+          </p>
+          <div class="container container--flex02">
+            <div></div>
+          </div>
+          <pre>
+.container {
+  display: flex;
+}
+.container div {
+  margin: auto;
+}
+</pre
+          >
+          <h3>Grid</h3>
+          <p>
+            Diese Variante verwendet das Grid-Layout-Module und ist damit nicht nur die modernste, sondern auch mit nur 2 Zeilen die kürzeste Methode. Der
+            Content wird hier automatisch zu einem grid-item, in dem der Container mit <code>display: grid;</code> zu einem Grid-Container definiert wird. Die
+            Deklaration <code>place-items</code> sorgt letztendlich für die gewünschte vertikale und horizontale Zentrierung.
+          </p>
+          <p>
+            Dabei muss man wissen, dass <code>place-items</code> im Grunde nur eine Shortcut-Definition für <code>align-items</code> und
+            <code>justify-items</code> ist, d.h. anstelle von <code>place-items</code> könnte man auch folgendes schreiben:
+            <code>align-items: center; justify-items: center;</code>. Obwohl flexbox und grid viele Deklarationen gemeinsam haben, kann
+            <code>place-items</code> leider nicht für flexbox genutzt werden, da flexbox zwar <code>align-items</code> kennt, aber
+            <code>justify-items</code> von flexbox nicht unterstützt wird.
+          </p>
+          <p>
+            Diese Variante hat übrigens noch ein besonderes Verhalten. Wenn das Grid-Layout aus mehreren Grid-Zellen besteht, dann wird die Zentrierung auf
+            sämtliche Grid-Zellen angewendet.
+          </p>
+          <div class="container container--grid">
+            <div></div>
+          </div>
+          <pre>
+.container {
+  display: grid;
+  place-items: center;
+}
+</pre
+          >
+        </article>
+      </main>
+      <nav>
+        <h1>Beiträge</h1>
+        <ol>
+          <li><a href="kurzschreibweise-top-right-bottom-left.html">Kurzschreibweise für top, right, bottom, left</a></li>
+          <li><a href="texte-als-maske-fuer-hintergruende.html">Texte als Maske für Hintergründe</a></li>
+          <li><a href="der-irrtum-mit-root-em.html">Der Irrtum mit root em</a></li>
+          <li><a href="horizontales-menue-mit-trennern.html">Horizontales Menü mit Trennern</a></li>
+          <li>
+            <a href="steuerung-der-spezifizitaet-bei-mehreren-attributen.html">Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</a>
+          </li>
+          <li><a href="inline-svg-als-background-image-ueber-css-variablen.html">Inline-SVG als background-image über CSS-Variablen</a></li>
+          <li>
+            <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
+          </li>
+          <li><a href="detaillierte-kontrolle-beim-dekorieren-von-verweisen.html">Detaillierte Kontrolle beim Dekorieren von Verweisen</a></li>
+          <li><a href="positionswechsel-von-summary-innerhalb-details.html">Positionswechsel von summary innerhalb details</a></li>
+          <li><a href="modale-und-nicht-modale-dialoge.html">Modale und nicht-modale Dialoge</a></li>
+          <li><a href="vertikale-und-horizontale-zentrierung.html">Vertikale und horizontale Zentrierung</a></li>
+        </ol>
+      </nav>
+    </div>
+    <footer>
+      &copy 2023
+      <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
+    </footer>
+  </body>
+</html>

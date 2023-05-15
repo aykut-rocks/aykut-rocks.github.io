@@ -52,14 +52,17 @@
       }
 
       .modal-dialog-bg-blur::backdrop {
+        -webkit-backdrop-filter: blur(4px);
         backdrop-filter: blur(4px);
       }
 
       .modal-dialog-bg-grayscale::backdrop {
+        -webkit-backdrop-filter: grayscale(1);
         backdrop-filter: grayscale(1);
       }
 
       .modal-dialog-bg-invert::backdrop {
+        -webkit-backdrop-filter: invert(1);
         backdrop-filter: invert(1);
       }
     </style>
@@ -259,10 +262,10 @@ dialog:modal {
             Dialog-Boxen anwendbar sind.
           </p>
           <p>
-            Hier sind drei Beispiele für Hintergründe mit <code>backdrop-filter</code>. Im ersten Beispiel wir der Hintergrund mit dem blur() Filter unscharf
+            Hier sind drei Beispiele für Hintergründe mit <code>backdrop-filter</code>. Im ersten Beispiel wird der Hintergrund mit dem blur() Filter unscharf
             dargestellt. Im zweiten Beispiel wird der Hintergrund mit dem grayscale() Filter in Graustufen umgewandelt. Im dritten Beispiel wird der Hintergrund
-            mit dem invert() Filter invertiert. Selbstveständlich ist mit CSS Filtern deutlich mehr möglich, daher empfehle ich hier in einschlägigen Quellen
-            weiterzulesen, da es hier inhaltlich den Rahmen sprengt.
+            mit dem invert() Filter invertiert. Für iOS-Geräte muss aktuell noch der vendor-prefix mitdefiniert werden. Selbstveständlich ist mit CSS Filtern
+            deutlich mehr möglich, daher empfehle ich hier in einschlägigen Quellen weiterzulesen, da es hier inhaltlich den Rahmen sprengt.
           </p>
 
           <dialog id="modalDialogBgBlur" class="modal-dialog-bg-blur">
@@ -282,18 +285,21 @@ dialog:modal {
 
           <pre>
 .modal-dialog-bg-blur::backdrop {
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }</pre
           >
           <button onclick="openModalDialog('modalDialogBgBlur')">Dialog mit blur() Filter öffnen</button>
           <pre>
 .modal-dialog-bg-grayscale::backdrop {
+  -webkit-backdrop-filter: grayscale(1);
   backdrop-filter: grayscale(1);
 }</pre
           >
           <button onclick="openModalDialog('modalDialogBgGrayscale')">Dialog mit grayscale() Filter öffnen</button>
           <pre>
 .modal-dialog-bg-invert::backdrop {
+  -webkit-backdrop-filter: invert(1);
   backdrop-filter: invert(1);
 }</pre
           >
@@ -348,6 +354,7 @@ dialog:modal {
           <li>
             <a href="modale-und-nicht-modale-dialoge.html">Modale und nicht-modale Dialoge</a>
           </li>
+          <li><a href="vertikale-und-horizontale-zentrierung.html">Vertikale und horizontale Zentrierung</a></li>
         </ol>
       </nav>
     </div>
