@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Editierung und Selektierung von Text - HTML/CSS Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Editierung und Selektierung von Text" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grid-container grid-container--article">
+      <main>
+        <article>
+          <h1>Editierung und Selektierung von Text</h1>
+          <h4>
+            <i>Autor: Aykut Şensoy, Datum: <time datetime="2023-10-08">08.10.2023</time></i>
+          </h4>
+          <p>
+            CSS bietet eine Reihe von Möglichkeiten an, wenn es um die Editierung und Selektierung von Text geht. Grundsätzlich lässt sich jedes HTML-Element
+            editierbar machen. Umgekehrt ist es auch möglich die Editierung von Text gänzlich zu unterbinden, indem man die Selektierung von Text per CSS
+            ausschaltet. Ebenso lässt sich das Aussehen von selektiertem Text beeinflussen. Man kann sogar die Farbe des blinkenden Cursors bei der Texteingabe
+            verändern.
+          </p>
+          <h2>Text editierbar machen</h2>
+          <p>
+            Fangen wir zuerst mit der Möglichkeit an, Text editierbar zu machen. HTML bietet dafür eine ganz simple Lösung in Form eines globalen Attributs an.
+            Man definiert einfach an einem beliebigen HTML-Tag das Attribut <code>contenteditable="true"</code>.
+          </p>
+          <p>Hier das funktionierende Beispiel. Einfach auf den Text klicken und editieren.</p>
+          <pre>
+&lt;p contenteditable="true"&gt;
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu enim non purus fermentum volutpat.
+&lt;/p&gt;
+</pre
+          >
+          <div style="background-color: #fff; color: #000; padding: 16px">
+            <p contenteditable="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu enim non purus fermentum volutpat.</p>
+          </div>
+          <h2>Farbe des blinkenden Cursors ändern</h2>
+          <p>
+            Um die Farbe des blinkenden Cursors zu ändern, muss man per CSS die Deklaration "caret-color" auf eine beliebige Farbe setzen. Die
+            Default-Definition für "caret-color" ist zwar auto, aber die Browser nutzen in der Regel standardmäßig <code>caret-color: currentColor;</code> als
+            Farbdefinition.
+          </p>
+          <p>Nehmen wir das obere Beispiel und färben den Text rot. Man sieht, dass der Cursor beim Editieren automatisch die aktuelle Textfarbe annimmt.</p>
+          <div style="background-color: #fff; color: #f00; padding: 16px">
+            <p contenteditable="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu enim non purus fermentum volutpat.</p>
+          </div>
+          <p>
+            Jetzt färben wir den Text blau, aber möchten, dass der Cursor beim Editieren rot gefärbt ist. In diesem Fall müssen wir explizit die Deklaration
+            <code>caret-color: red;</code> definieren.
+          </p>
+          <div style="background-color: #fff; color: #00f; padding: 16px; caret-color: #f00">
+            <p contenteditable="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu enim non purus fermentum volutpat.</p>
+          </div>
+          <p>
+            Ein besonderer Fall wäre in diesem Kontext noch wichtig zu erwähnen. Es ist ja in CSS möglich als Farbdefinition "transparent" anzugeben. In diesem
+            Fall hätte man den lustigen Effekt, dass der blinkende Cursor zwar vorhanden, aber nicht zu sehen ist.
+          </p>
+          <h2>Selektierung von Text unterbinden</h2>
+          <p>
+            Es ist in jedem Betriebssystem möglich Texte mit Hilfe von Eingabegeräten, wie zum Beispiel der Maus, zu selektieren. Es ist auch möglich Texte auf
+            Touch-Devices mit Gesten zu selektieren. HTML erlaubt dieses System-Feature mit Hilfe der CSS Deklaration <code>user-select: none;</code> im
+            Web-Browser zu deaktivieren. Dabei ist zu beachten, dass für Safari zusätzlich noch die -webkit Vendor-Präfix Notation notwendig ist. Probieren Sie
+            es aus und versuchen Sie im unteren Beispiel den Text zu selektieren, es ist nicht mehr möglich.
+          </p>
+          <pre>
+&lt;p style="user-select: none; -webkit-user-select: none"&gt;
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu enim non purus fermentum volutpat.
+&lt;/p&gt;
+</pre
+          >
+          <div style="background-color: #fff; color: #000; padding: 16px">
+            <p style="user-select: none; -webkit-user-select: none">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu enim non purus fermentum volutpat.
+            </p>
+          </div>
+          <p>
+            Interessant wird es, wenn man das Attribut <code>contenteditable="true"</code> mit der Deklaration <code>user-select: none;</code> kombinieren
+            möchte. In diesem Fall wird "user-select" komplett ignoriert. Wie sie im folgenden Beispiel sehen können, bleibt der Text trotz
+            <code>user-select: none;</code> editierbar und selektierbar. Ich denke, dass dieses Verhalten Sinn macht, weil es sonst dem WYSIWYG-Paradigma
+            widersprechen würde. Man muss immer vorher etwas markieren, um es zu bearbeiten. Wenn es sich nicht markieren lässt, macht es also auch keinen Sinn
+            es bearbeitbar zu machen.
+          </p>
+          <p>
+            Ich denke am besten wird dieses Verhalten deutlich, wenn man einen Teil des editierbaren Textes wieder auf nicht-editierbar stellt. Im folgenden
+            Beispiel habe ich den rot markierten Teil des Textes wieder auf <code>contenteditable: false</code> gestellt. Jetzt sieht man, dass
+            <code>user-select: none;</code> auf dem nicht-editierbaren Teil des Textes greift, aber nicht auf den editierbaren Teil.
+          </p>
+          <pre>
+  &lt;p contenteditable="true" style="user-select: none; -webkit-user-select: none"&gt;
+  Lorem ipsum dolor sit amet, &lt;span contenteditable="false" style="color: red"&gt;consectetur adipiscing elit.&lt;/span&gt; Phasellus eu enim non purus fermentum volutpat.
+  &lt;/p&gt;
+  </pre
+          >
+          <div style="background-color: #fff; color: #000; padding: 16px">
+            <p contenteditable="true" style="user-select: none; -webkit-user-select: none">
+              Lorem ipsum dolor sit amet, <span contenteditable="false" style="color: red">consectetur adipiscing elit.</span> Phasellus eu enim non purus
+              fermentum volutpat.
+            </p>
+          </div>
+          <h2>Selektierten Text formatieren</h2>
+          <p>
+            Die Standardformatierung des Systems bei selektiertem Text lässt sich mit dem Pseudo-Element "::selection" überschreiben. Am besten schaut man sich
+            das Beispiel unten an. Der selektierte Text hat eine völlig individualisierte Text- und Hintergrundfarbe.
+          </p>
+          <pre>
+&lt;style&gt;
+p::selection {
+  background-color: purple;
+  color: white;
+}
+&lt;/style&gt;
+&lt;p&gt;
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu enim non purus fermentum volutpat.
+&lt;/p&gt;
+</pre
+          >
+          <div style="background-color: #fff; color: #000; padding: 16px">
+            <style>
+              .theming::selection {
+                background-color: purple;
+                color: yellow;
+              }
+            </style>
+            <p class="theming">Lorem ipsum dolor sit amet,consectetur adipiscing elit. Phasellus eu enim non purus fermentum volutpat.</p>
+          </div>
+          <p>
+            Zu guter Letzt sollten in diesem Kontext 2 wichtige Dinge nicht unerwähnt bleiben. Das Pseudo-Element "::selection" hat starke Einschränkungen, was
+            seine Formatierungsmöglichkeiten betrifft. Es sind nur "color", "background-color", "text-decoration", "text-shadow" sowie "text-stroke" erlaubt.
+            Weiterhin muss erwähnt werden, dass Safari dieses Feature zwar grundsätzlich unterstützt, aber nicht auf den iOS-Geräten.
+          </p>
+        </article>
+      </main>
+      <nav>
+        <h1>Beiträge</h1>
+        <ul>
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="editierung-und-selektierung-von-text.html">Editierung und Selektierung von Text</a></li>
+          <li><a href="vertikale-und-horizontale-zentrierung.html">Vertikale und horizontale Zentrierung</a></li>
+          <li><a href="modale-und-nicht-modale-dialoge.html">Modale und nicht-modale Dialoge</a></li>
+          <li><a href="positionswechsel-von-summary-innerhalb-details.html">Positionswechsel von summary innerhalb details</a></li>
+          <li><a href="detaillierte-kontrolle-beim-dekorieren-von-verweisen.html">Detaillierte Kontrolle beim Dekorieren von Verweisen</a></li>
+          <li>
+            <a href="zwei-varianten-fuer-eine-table-caption.html">Zwei Varianten für eine table caption</a>
+          </li>
+          <li><a href="inline-svg-als-background-image-ueber-css-variablen.html">Inline-SVG als background-image über CSS-Variablen</a></li>
+          <li>
+            <a href="steuerung-der-spezifizitaet-bei-mehreren-attributen.html">Steuerung der Spezifizität bei mehreren Attributen am gleichen Tag</a>
+          </li>
+          <li><a href="horizontales-menue-mit-trennern.html">Horizontales Menü mit Trennern</a></li>
+          <li><a href="der-irrtum-mit-root-em.html">Der Irrtum mit root em</a></li>
+          <li><a href="texte-als-maske-fuer-hintergruende.html">Texte als Maske für Hintergründe</a></li>
+          <li><a href="kurzschreibweise-top-right-bottom-left.html">Kurzschreibweise für top, right, bottom, left</a></li>
+        </ul>
+      </nav>
+    </div>
+    <footer>
+      &copy 2023
+      <a href="mailto:aykut@gmx-topmail.de">Aykut Şensoy</a>
+    </footer>
+  </body>
+</html>

@@ -174,7 +174,8 @@ textarea {
  */
 
 button,
-input { /* 1 */
+input {
+  /* 1 */
   overflow: visible;
 }
 
@@ -184,7 +185,8 @@ input { /* 1 */
  */
 
 button,
-select { /* 1 */
+select {
+  /* 1 */
   text-transform: none;
 }
 
@@ -351,69 +353,69 @@ template {
 /* custom css */
 
 body {
-    font-family: "Courier New", Courier, monospace;
-    background-color: #acbcb1;
-    margin: 8px;
+  font-family: "Courier New", Courier, monospace;
+  background-color: #acbcb1;
+  margin: 8px;
 }
 figure {
-    margin: auto;
+  margin: auto;
 }
 img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 a {
-    color: #000;
-    text-underline-offset: 4px;
+  color: #000;
+  text-underline-offset: 4px;
 }
 a:hover,
 a:focus {
-    color: #3e555e;
+  color: #3e555e;
 }
-ol {
-    padding: 0;
+ul {
+  padding: 0;
 }
-ol li {
-    margin-left: 38px;
+ul li {
+  margin-left: 38px;
 }
-ol li + li {
-    margin-top: 24px;
+ul li + li {
+  margin-top: 24px;
 }
-ol li a {
-    color: #fff;
+ul li a {
+  color: #fff;
 }
-ol li a:hover,
-ol li a:active {
-    color: #cfb895;
+ul li a:hover,
+ul li a:active {
+  color: #cfb895;
 }
 .grid-container {
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 8px;
-    color: #fff;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 8px;
+  color: #fff;
 }
 @media (min-width: 768px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: 1fr 3fr 1fr;
-    }
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+  }
 
-    .grid-container--article {
-        grid-template-columns: 1fr 4fr;
+  .grid-container--article {
+    grid-template-columns: 1fr 4fr;
   }
 
   .grid-container--article main {
     order: 1;
-}
+  }
 }
 nav,
 article,
 aside {
-    border-radius: 4px;
-    padding: 8px;
+  border-radius: 4px;
+  padding: 8px;
 }
 nav {
-    background-color: #333b3e;
+  background-color: #333b3e;
 }
 main {
   display: flex;
@@ -421,14 +423,14 @@ main {
   gap: 8px;
 }
 article {
-    background-color: #3e555e;
+  background-color: #3e555e;
 }
 aside {
-    background-color: #586f77;
+  background-color: #586f77;
 }
 footer {
-    text-align: center;
-    margin: 16px 0 32px;
+  text-align: center;
+  margin: 16px 0 32px;
 }
 p span a {
   text-decoration: none;
