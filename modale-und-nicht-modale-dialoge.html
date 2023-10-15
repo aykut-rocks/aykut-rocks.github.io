@@ -212,7 +212,7 @@ dialog:modal {
             zu achten, zwei Doppelpunkte vor dem Schlüsselwort "backdrop" zu definieren, damit das Pseudo-Element erwartungsgemäß funktioniert.
           </p>
           <p>
-            Hier sind drei Beispiele für Hintergründe mit <code>::backdrop</code>. Bei ersten Beispiel handelt es sich sicherlich um die geläufigste
+            Hier sind drei Beispiele für Hintergründe mit <code>::backdrop</code>. Beim ersten Beispiel handelt es sich sicherlich um die geläufigste
             Anforderung, einem modalen Dialog mit gedimmten Hintergrund. Dabei wird die Hintergrund-Transparenz mit dem Alpha-Kanal der RGBA Funktion erzeugt.
             Im zweiten Beispiel wird ein Hintergrundbild als Kachelgrafik definiert. Im dritten Beispiel wird ein Farbverlauf mit CSS gradients definiert. Es
             ist prinzipiell alles machbar was in Zusammenhang mit CSS background möglich ist. Dazu zählen auch Keyframe-Animationen, Transitions und
@@ -305,7 +305,7 @@ dialog:modal {
           >
           <button onclick="openModalDialog('modalDialogBgInvert')">Dialog mit invert() Filter öffnen</button>
 
-          <h2>Autofocus und custom Styles</h2>
+          <h2>Autofocus</h2>
           <p>
             Wenn man eine Dialog-Box öffnet, wird der Fokus automatisch auf das erste fokussierbare Element innerhalb des dialog-Elements gesetzt. D.h. es macht
             z.B. Sinn, den Schließen-Button als erstes Element innerhalb des dialog-Tags zu platzieren. Somit ist es möglich mit der enter-Taste auf der
@@ -313,11 +313,12 @@ dialog:modal {
             bietet es sich an, das globale Attribut <code>autofocus</code> am gewünschten Element zu definieren, damit der Fokus automatisch auf diesem Element
             liegt.
           </p>
+          <h2>Custom Styling</h2>
           <p>
-            Selbstverständlich kann man auch die browser-internen Styles für das dialog-Element überschreiben. Mit der Deklaration
-            <code>inset-inline-start</code> kann z.B. die vertikale Position der Dialog-Box gesteuert werden. Mit <code>width/height</code> bzw.
-            <code>max-width/max-height</code> kann man z.B. die Dimensionen der Dialog-Box beeinflussen, die sich sonst am Content orientieren. Mit CSS border
-            lässt sich der standardmäßig gesetzte Rahmen der Dialog-Box indivuell gestalten.
+            Selbstverständlich kann man auch die browser-internen Styles für das dialog-Element überschreiben, in dem man die Pseudo-Klasse
+            <code>:modal</code> nutzt. Mit der Deklaration <code>inset-inline-start</code> kann z.B. die vertikale Position der Dialog-Box gesteuert werden. Mit
+            <code>width/height</code> bzw. <code>max-width/max-height</code> kann man z.B. die Dimensionen der Dialog-Box beeinflussen, die sich sonst am
+            Content orientieren. Mit CSS border lässt sich der standardmäßig gesetzte Rahmen der Dialog-Box indivuell gestalten.
           </p>
         </article>
       </main>
