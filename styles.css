@@ -372,20 +372,20 @@ a:hover,
 a:focus {
   color: #3e555e;
 }
-ul {
+nav ul {
   padding: 0;
 }
-ul li {
+nav ul li {
   margin-left: 38px;
 }
-ul li + li {
+nav ul li + li {
   margin-top: 24px;
 }
-ul li a {
+nav ul li a {
   color: #fff;
 }
-ul li a:hover,
-ul li a:active {
+nav ul li a:hover,
+nav ul li a:active {
   color: #cfb895;
 }
 .grid-container {

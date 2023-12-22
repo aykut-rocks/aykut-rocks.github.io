@@ -8,7 +8,7 @@
     <meta name="description" content="Horizontales Menü mit Trennern" />
     <link rel="stylesheet" href="styles.css" />
     <style>
-      ul {
+      .separator {
         font-family: verdana;
         overflow: auto;
         resize: both;
@@ -18,13 +18,13 @@
         background-color: #333;
         border: 1px solid #999;
       }
-      ul li {
+      .separator li {
         display: inline;
       }
-      ul li::after {
+      .separator__dot li::after {
         content: " •";
       }
-      .separator li::after {
+      .separator__svg li::after {
         content: " ";
         letter-spacing: 24px;
         background: url('data:image/svg+xml;utf8,<svg width="6" height="6" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6" r="6" fill="white" /></svg>')
@@ -86,7 +86,7 @@ ul li::after {
 }
 </pre
           >
-          <ul>
+          <ul class="separator separator__dot">
             <li>Impressum</li>
             <li>Hilfe</li>
             <li>Kontakt</li>
@@ -118,7 +118,7 @@ ul li::after {
 }
 </pre
           >
-          <ul class="separator">
+          <ul class="separator separator__svg">
             <li>Impressum</li>
             <li>Hilfe</li>
             <li>Kontakt</li>
